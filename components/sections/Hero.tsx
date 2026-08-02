@@ -17,16 +17,16 @@ export default function Hero() {
             <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/20 via-orange-500/20 to-indigo-500/20 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="max-w-5xl mx-auto text-center z-10 space-y-8 mt-12">
-                {/* Rozet */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-300 backdrop-blur-md shadow-sm"
-                >
-                    <Sparkles className="w-4 h-4 text-amber-500" />
-                    <span>Boşnakça "Şafak" — Teknolojide Yeni Bir Devir</span>
-                </motion.div>
+  {/* Rozet */}
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-300 backdrop-blur-md shadow-sm"
+  >
+    <Sparkles className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
+    <span>Geleceğin Teknolojileri ile Güçlendirilmiş Mimariler</span>
+  </motion.div>
 
                 {/* Ana Başlık */}
                 <motion.h1
