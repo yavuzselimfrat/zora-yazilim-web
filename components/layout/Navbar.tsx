@@ -25,10 +25,13 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Sayfa içi bölümlere tam uyumlu güncel navigasyon linkleri
   const navLinks: NavLink[] = [
-    { name: 'Çözümlerimiz', href: '#cozumler' },
     { name: 'Hakkımızda', href: '#hakkimizda' },
-    { name: 'Ürünler', href: '#urunler' },
+    { name: 'Projeler', href: '#projeler' },
+    { name: 'Çözümlerimiz', href: '#cozumler' },
+    { name: 'Teknolojiler', href: '#teknolojiler' },
+    { name: 'Insights', href: '#insights' },
     { name: 'İletişim', href: '#iletisim' },
   ];
 

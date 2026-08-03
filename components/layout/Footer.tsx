@@ -22,9 +22,12 @@ const Footer: React.FC = () => {
         </p>
 
         {/* LİNK GRUBU */}
-        <div className="flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+        <div className="flex flex-wrap items-center justify-center gap-5 text-xs text-slate-600 dark:text-slate-400 font-medium">
+          <a href="#hakkimizda" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Hakkımızda</a>
+          <a href="#projeler" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Projeler</a>
           <a href="#cozumler" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Çözümlerimiz</a>
-          <a href="#urunler" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Teknolojiler</a>
+          <a href="#teknolojiler" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Teknolojiler</a>
+          <a href="#insights" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Insights</a>
           <a href="#iletisim" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">İletişim</a>
         </div>
       </div>

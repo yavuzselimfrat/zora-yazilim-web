@@ -3,13 +3,23 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "../components/ThemeProvider";
 import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer"; // Footer'ı dahil ettik
+import Footer from "../components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Zora Yazılım — Geleceğin Yazılım Teknolojileri",
-  description: "Ölçeklenebilir mimariler, yapay zeka ajanları ve modern web çözümleri.",
+  title: "Zora Yazılım — Ölçeklenebilir Mimariler & AI Çözümleri",
+  description: "Zora Yazılım; otonom yapay zeka ajanları, yüksek performanslı backend altyapıları ve modern web platformları geliştiren ileri teknoloji şirketidir.",
+  keywords: [
+    "Zora Yazılım",
+    "Yapay Zeka",
+    "Multi-Agent Systems",
+    "Ölçeklenebilir Yazılım",
+    "Next.js",
+    "Node.js",
+    "B2B Yazılım Solutions",
+    "Web Tasarım ve Geliştirme",
+  ],
 };
 
 export default function RootLayout({
