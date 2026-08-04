@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, CheckCircle2, Bot, Globe, Cpu, Sparkles, MessageSquare, ChevronDown, Mail, Clock, ShieldCheck } from 'lucide-react';
+import { Send, CheckCircle2, Bot, Globe, Cpu, Sparkles, MessageSquare, ChevronDown, Mail, Clock, ShieldCheck, Calculator, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const serviceOptions = [
@@ -43,6 +43,11 @@ export default function ContactPage() {
   const [selectedBudget, setSelectedBudget] = useState<string>('100.000 TL - 250.000 TL');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  // ROI Calculator State
+  const [weeklyHours, setWeeklyHours] = useState<number>(20);
+  const [teamSize, setTeamSize] = useState<number>(4);
+  const savedHoursYearly = Math.round(weeklyHours * teamSize * 48 * 0.75);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,7 +96,7 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-5 space-y-8"
+              className="lg:col-span-5 space-y-6"
             >
               <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 space-y-6">
                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -133,6 +138,52 @@ export default function ContactPage() {
                   Tüm proje görüşmeleri ilk andan itibaren NDA güvencesi altındadır.
                 </p>
               </div>
+
+              {/* 🧮 HESAPLAYICI MODÜLÜ (UI BOZMADAN EKLENDİ) */}
+              <div className="p-6 rounded-2xl bg-slate-900 text-white border border-slate-800 space-y-4 shadow-xl">
+                <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+                  <Calculator className="w-5 h-5 text-indigo-400" />
+                  <div>
+                    <h4 className="text-sm font-bold">AI Zaman Tasarrufu Hesaplayıcı</h4>
+                    <p className="text-[11px] text-slate-400">Otomasyonun ekibinize kazandıracağı süre</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <div className="flex justify-between mb-1">
+                      <span className="text-slate-300">Manuel İş Saati (Haftalık/Kişi):</span>
+                      <span className="text-indigo-400 font-bold">{weeklyHours} Saat</span>
+                    </div>
+                    <input
+                      type="range" min="5" max="50" value={weeklyHours}
+                      onChange={(e) => setWeeklyHours(Number(e.target.value))}
+                      className="w-full accent-indigo-500 cursor-pointer h-1 bg-slate-800 rounded-lg"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between mb-1">
+                      <span className="text-slate-300">Ekip Büyüklüğü:</span>
+                      <span className="text-indigo-400 font-bold">{teamSize} Kişi</span>
+                    </div>
+                    <input
+                      type="range" min="1" max="25" value={teamSize}
+                      onChange={(e) => setTeamSize(Number(e.target.value))}
+                      className="w-full accent-indigo-500 cursor-pointer h-1 bg-slate-800 rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-indigo-950/60 border border-indigo-800/50 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-indigo-300 font-bold uppercase block">Tahmini Yıllık Kazanım</span>
+                    <span className="text-xl font-black text-white">~{savedHoursYearly.toLocaleString()} Saat</span>
+                  </div>
+                  <TrendingUp className="w-6 h-6 text-emerald-400" />
+                </div>
+              </div>
+
             </motion.div>
 
             {/* SAĞ İNTERAKTİF FORM */}

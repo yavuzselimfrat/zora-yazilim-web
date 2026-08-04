@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Target, Cpu, ShieldCheck, Zap, FileText, ShieldAlert, Code } from 'lucide-react';
+import { Target, Cpu, ShieldCheck, Zap, FileText, ShieldAlert, Code, Layers, Network, Database } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const principles = [
@@ -50,6 +50,13 @@ const guarantees = [
     description: "Canlıya alım sonrasında oluşabilecek teknik acil durumlara müdahale süreleri sözleşme ile garanti altına alınır.",
     color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
   },
+];
+
+const blueprintSteps = [
+  { icon: Layers, title: "1. Data Input", desc: "API, Webhook ve Canlı Veri Akışı" },
+  { icon: Network, title: "2. AI Agent Orchestration", desc: "LangChain / CrewAI Vektör Bellek" },
+  { icon: Database, title: "3. Scalable Backend", desc: "Node.js & Redis Caching" },
+  { icon: Zap, title: "4. Fast Output", desc: "<200ms Kesintisiz Çıktı" },
 ];
 
 export default function AboutPage() {
@@ -131,6 +138,34 @@ export default function AboutPage() {
               })}
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* 🏛️ B2B ARCHITECTURE BLUEPRINT (GÖRSEL AKIŞ KARTI) */}
+      <section className="py-16 bg-slate-900 text-white border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">Enterprise Architecture</span>
+              <h3 className="text-2xl font-extrabold text-white">Zora Sistem Mimarisi Blueprint</h3>
+            </div>
+            <p className="text-xs text-slate-400 max-w-md">Projelerimizde uyguladığımız modüler ve AI destekli katmanlı altyapı şeması.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {blueprintSteps.map((bp, i) => {
+              const Icon = bp.icon;
+              return (
+                <div key={i} className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                  <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <h4 className="text-sm font-bold text-white">{bp.title}</h4>
+                  <p className="text-xs text-slate-400">{bp.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
