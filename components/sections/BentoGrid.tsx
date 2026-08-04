@@ -1,99 +1,113 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Cpu, Zap, ShieldCheck, ArrowUpRight, Bot } from "lucide-react";
+import React from 'react';
+import { Bot, Cpu, Layers, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-const services = [
-    {
-        title: "Yapay Zeka & Otonom Ajanlar",
-        description: "İş süreçlerinizi otomatikleştiren LLM entegrasyonları, özel veri modelleri ve akıllı ajan mimarileri.",
-        icon: Bot,
-        span: "col-span-1 md:col-span-2 shadow-amber-500/5",
-        gradient: "from-amber-500/10 via-orange-500/5 to-transparent",
-        badge: "Öne Çıkan",
-    },
-    {
-        title: "Ölçeklenebilir SaaS Mimarisi",
-        description: "Yüksek trafik altında bile kesintisiz çalışan, bulut tabanlı modern yazılım altyapıları.",
-        icon: Cpu,
-        span: "col-span-1",
-        gradient: "from-indigo-500/10 to-transparent",
-    },
-    {
-        title: "Ultra Hızlı Modern Web Platformları",
-        description: "Next.js ve mikro-önuç mimarileri ile ışık hızında açılan, SEO uyumlu dijital deneyimler.",
-        icon: Zap,
-        span: "col-span-1",
-        gradient: "from-blue-500/10 to-transparent",
-    },
-    {
-        title: "Güvenli API & Sistem Entegrasyonu",
-        description: "Farklı yazılımlarınızı birbiriyle pürüzsüz konuşturan güvenli ve yüksek hızlı veri mimarileri.",
-        icon: ShieldCheck,
-        span: "col-span-1 md:col-span-2",
-        gradient: "from-emerald-500/10 to-transparent",
-    },
-];
+const BentoGrid: React.FC = () => {
+  return (
+    <section className="py-20 bg-white dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <span className="text-xs uppercase tracking-widest font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/50 px-4 py-1.5 rounded-full inline-block mb-4">
+            Mühendislik Gücümüz
+          </span>
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            Geleceğin Dijital Sistemleri İçin <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+              Modern Altyapı
+            </span>
+          </h2>
+        </motion.div>
 
-export default function BentoGrid() {
-    return (
-        <section className="py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white px-6 relative transition-colors duration-300">
-            <div className="max-w-6xl mx-auto space-y-12">
-                {/* Başlık ve Açıklama */}
-                <div className="text-center space-y-4 max-w-2xl mx-auto">
-                    <h2 className="text-xs font-semibold uppercase tracking-widest text-amber-500">
-                        Uzmanlık Alanlarımız
-                    </h2>
-                    <p className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-                        Geleceğin Teknolojileri ile Güçlendirilen Çözümler
-                    </p>
-                </div>
-
-                {/* Bento Grid Yapısı */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {services.map((service, index) => {
-                        const Icon = service.icon;
-                        return (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                className={`relative group rounded-3xl p-8 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 backdrop-blur-xl overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md ${service.span}`}
-                            >
-                                {/* Kart Arka Plan Gradient */}
-                                <div
-                                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
-                                />
-
-                                <div className="relative z-10 space-y-6 flex flex-col justify-between h-full">
-                                    <div className="flex items-center justify-between">
-                                        <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 flex items-center justify-center text-amber-500 group-hover:scale-110 transition-transform">
-                                            <Icon className="w-6 h-6" />
-                                        </div>
-                                        {service.badge && (
-                                            <span className="text-[10px] font-semibold px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">
-                        {service.badge}
-                      </span>
-                                        )}
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-amber-500 transition-colors flex items-center gap-2">
-                                            {service.title}
-                                            <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" />
-                                        </h3>
-                                        <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                            {service.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* BENTO KART 1: AI & OTONOM AJANLAR (GENİŞ) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ y: -6 }}
+            className="md:col-span-2 p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between hover:border-indigo-500/50 hover:shadow-xl transition-all duration-300 relative group overflow-hidden"
+          >
+            <div className="space-y-4 relative z-10">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                <Bot className="w-6 h-6" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                Multi-Agent & LLM Sistemleri
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                İş süreçlerinizi otomatikleştiren, kararlar alabilen ve karmaşık görevleri otonom şekilde yürüten özelleştirilmiş yapay zeka ajanları geliştiriyoruz.
+              </p>
             </div>
-        </section>
-    );
-}
+            <div className="mt-8 pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center gap-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+              <Sparkles className="w-4 h-4" />
+              <span>LangChain & CrewAI Entegrasyonları</span>
+            </div>
+          </motion.div>
+
+          {/* BENTO KART 2: YÜKSEK PERFORMANS */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ y: -6 }}
+            className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between hover:border-purple-500/50 hover:shadow-xl transition-all duration-300 relative group overflow-hidden"
+          >
+            <div className="space-y-4 relative z-10">
+              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                <Cpu className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                Ölçeklenebilir Backend
+              </h3>
+              <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Mikrohizmet mimarileri ile yüksek trafik altında tıkanmayan Node.js altyapıları.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-slate-200/60 dark:border-slate-800/60 text-xs font-semibold text-purple-600 dark:text-purple-400">
+              Mikrohizmet & Bulut
+            </div>
+          </motion.div>
+
+          {/* BENTO KART 3: MODERN FRONTEND */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            whileHover={{ y: -6 }}
+            className="md:col-span-3 p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:border-pink-500/50 hover:shadow-xl transition-all duration-300 relative group overflow-hidden"
+          >
+            <div className="space-y-3 max-w-2xl">
+              <div className="w-12 h-12 rounded-2xl bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center">
+                <Layers className="w-6 h-6" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                Ultra Hızlı Web Platformları
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Next.js, React ve Tailwind CSS ile arama motorlarında üst sıralara çıkan, SEO odaklı ve milisaniyeler içinde yüklenen kullanıcı deneyimleri.
+              </p>
+            </div>
+            <div className="px-6 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-800 dark:text-slate-200 whitespace-nowrap shadow-sm">
+              Next.js & SEO Ready
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default BentoGrid;
