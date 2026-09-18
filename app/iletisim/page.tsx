@@ -1,50 +1,36 @@
 'use client';
 
+import Breadcrumb from '@/components/Breadcrumb';
 import React, { useState } from 'react';
-import { Send, CheckCircle2, Bot, Globe, Cpu, Sparkles, MessageSquare, ChevronDown, Mail, Clock, ShieldCheck, Calculator, TrendingUp } from 'lucide-react';
+import Link from 'next/link';
+import { Send, CheckCircle2, Bot, Globe, Cpu, Sparkles, ChevronDown, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AmbientGlow from '@/components/sections/AmbientGlow';
+import { faqs } from '@/lib/faqs';
+
+const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const serviceOptions = [
-  { id: 'ai', label: 'Multi-Agent AI & LLM', icon: Bot },
-  { id: 'web', label: 'Özel Web Platformu', icon: Globe },
-  { id: 'backend', label: 'Ölçeklenebilir Backend', icon: Cpu },
+  { id: 'ai', label: 'Yapay Zeka Sistemleri', icon: Bot },
+  { id: 'web', label: 'Web Platformu', icon: Globe },
+  { id: 'backend', label: 'Backend & Altyapı', icon: Cpu },
   { id: 'other', label: 'Diğer / Danışmanlık', icon: Sparkles },
 ];
 
-const budgetOptions = ['50.000 TL - 100.000 TL', '100.000 TL - 250.000 TL', '250.000 TL+'];
-
-const faqs = [
-  {
-    question: "Mevcut sistemlerimize veya veritabanımıza entegre olabilir misiniz?",
-    answer: "Evet. Zora Yazılım olarak var olan Node.js, Python, PostgreSQL veya legacy altyapılarınıza dokunmadan, RESTful API veya gRPC üzerinden modüler entegrasyonlar gerçekleştiriyoruz."
-  },
-  {
-    question: "Yapay zeka otonom ajanlarını kendi sunucularımızda çalıştırabilir miyiz?",
-    answer: "Kesinlikle. İşletmenizin veri gizliliği politikalarına göre AI çözümlerimizi ister cloud altyapımızda ister kendi local sunucularınızda (On-Premise) yayına alabiliyoruz."
-  },
-  {
-    question: "Proje teslim edildikten sonra bakım ve teknik destek sağlıyor musunuz?",
-    answer: "Evet. Canlıya alım sonrasında 1 ila 12 aylık SLA (Service Level Agreement) bakım paketlerimizle sistemlerinizin 7/24 kesintisiz çalışmasını sağlıyoruz."
-  },
-  {
-    question: "Proje fiyatlandırması ve ödeme koşulları nasıl belirleniyor?",
-    answer: "Proje kapsamına (Scope of Work) göre 'Sabit Fiyat' veya 'Aylık Dedicated Mühendislik' modeli sunuyoruz. Ödemeler milestone (aşama) bazlı gerçekleştirilir."
-  }
-];
+const budgetOptions = ['50.000 TL altı', '50.000 - 150.000 TL', '150.000 TL ve üzeri', 'Henüz bilmiyorum'];
 
 const guarantees = [
-  { icon: Clock, label: "24 Saat İçinde Yanıt", desc: "Form doldurulduktan hemen sonra teknik ekibimiz dönüş yapar." },
-  { icon: ShieldCheck, label: "Gizlilik (NDA) Garantisi", desc: "Paylaştığınız tüm fikirler ve belgeler güvence altındadır." },
-  { icon: Mail, label: "Direkt Mühendis Ulaşımı", desc: "Satış temsilcisi yerine doğrudan yazılım ekibimizle görüşürsünüz." },
+  { label: '24 saate kadar yanıt', desc: 'Formu gönderdiğinizde ekibimiz kısa sürede size döner.' },
+  { label: 'Gizlilik güvencesi', desc: 'Paylaştığınız fikirler ve belgeler gizlilik sözleşmesiyle korunur.' },
+  { label: 'Doğrudan ekiple görüşme', desc: 'Aracı satış temsilcisi yerine doğrudan yazılım ekibimizle konuşursunuz.' },
 ];
 
 export default function ContactPage() {
-  const [selectedService, setSelectedService] = useState<string>('ai');
-  const [selectedBudget, setSelectedBudget] = useState<string>('100.000 TL - 250.000 TL');
+  const [selectedService, setSelectedService] = useState<string>('');
+  const [selectedBudget, setSelectedBudget] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // ROI Calculator State
   const [weeklyHours, setWeeklyHours] = useState<number>(20);
   const [teamSize, setTeamSize] = useState<number>(4);
   const savedHoursYearly = Math.round(weeklyHours * teamSize * 48 * 0.75);
@@ -52,7 +38,6 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
   };
 
   const toggleFaq = (index: number) => {
@@ -60,312 +45,367 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="pt-20 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
-      
-      {/* 🚀 İLETİŞİM VE TEKLİF FORMU BÖLÜMÜ */}
-      <section id="teklif" className="py-20 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+    <main className="min-h-screen bg-background text-foreground transition-colors duration-300 overflow-hidden">
+      {/* GİRİŞ + FORM */}
+      <section className="relative pt-40 pb-20 md:pt-48 md:pb-24 overflow-hidden">
+        <AmbientGlow />
+        <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+          <Breadcrumb items={[{ label: 'Ana Sayfa', href: '/' }, { label: 'İletişim' }]} />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
+            className="max-w-2xl mb-14"
           >
-            <span className="text-xs uppercase tracking-widest font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/50 px-4 py-1.5 rounded-full inline-block mb-4">
-              Birlikte Üretelim
-            </span>
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Projenizi <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
-                Hayata Geçirelim
-              </span>
+            <h1 className="font-display text-3xl md:text-5xl font-semibold tracking-tight text-foreground leading-[1.15]">
+              Projenizi <span className="text-dawn-600 dark:text-dawn-300">hayata geçirelim</span>.
             </h1>
-            <p className="mt-4 text-slate-600 dark:text-slate-400 text-sm md:text-base">
-              İhtiyaçlarınızı belirleyin, teknik ekibimiz 24 saat içinde özel mimari teklifle dönüş yapsın.
+            <p className="mt-5 text-lg md:text-xl text-foreground/55 leading-relaxed">
+              İhtiyacınızı kısaca anlatın, ekibimiz 24 saat içinde size dönsün.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             {/* SOL BİLGİ PANELİ */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-5 space-y-6"
+              transition={{ duration: 0.6, ease: EASE_OUT }}
+              className="lg:col-span-5 space-y-5"
             >
-              <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 space-y-6">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                  Doğrudan Mühendislik Ekibiyle İletişim
-                </h3>
-                <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Araya satış temsilcisi koymadan, doğrudan sistem mimarlarımız ve yazılım ekibimizle teknik detayları görüşün.
+              <div className="p-7 rounded-2xl border border-foreground/10 space-y-5">
+                <h3 className="font-display text-xl font-semibold text-foreground">Doğrudan ekiple görüşün</h3>
+                <p className="text-sm text-foreground/55 leading-relaxed">
+                  Aracı olmadan, projenizi doğrudan yazılım ekibimizle konuşun.
                 </p>
-
-                <div className="space-y-4 pt-4 border-t border-slate-200/60 dark:border-slate-800/60">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">
-                      @
-                    </div>
-                    <div>
-                      <p className="text-[11px] text-slate-500 font-semibold uppercase">Kurumsal E-posta</p>
-                      <a href="mailto:contact@zorayazilim.com" className="text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-indigo-600">
-                        contact@zorayazilim.com
-                      </a>
-                    </div>
+                <div className="space-y-3 pt-4 border-t border-foreground/10">
+                  <div>
+                    <p className="text-[11px] text-foreground/40 font-semibold uppercase tracking-wide">
+                      Kurumsal e-posta
+                    </p>
+                    <a
+                      href="mailto:contact@zorayazilim.com"
+                      className="text-sm font-semibold text-foreground hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200"
+                    >
+                      contact@zorayazilim.com
+                    </a>
                   </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
-                      <MessageSquare className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] text-slate-500 font-semibold uppercase">Yanıt Süresi</p>
-                      <p className="text-sm font-bold text-slate-800 dark:text-slate-200">Maksimum 24 Saat</p>
-                    </div>
+                  <div>
+                    <p className="text-[11px] text-foreground/40 font-semibold uppercase tracking-wide">
+                      Yanıt süresi
+                    </p>
+                    <p className="text-sm font-semibold text-foreground">En geç 24 saat içinde</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-foreground/40 font-semibold uppercase tracking-wide">
+                      WhatsApp
+                    </p>
+                    <a
+                      href="https://wa.me/905531656132?text=Merhaba%2C%20Zora%20Yaz%C4%B1l%C4%B1m%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-semibold text-foreground hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200"
+                    >
+                      0553 165 61 32
+                    </a>
                   </div>
                 </div>
               </div>
 
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white space-y-2 shadow-lg">
-                <span className="text-xs font-bold uppercase tracking-wider opacity-80">Güvenilirlik</span>
-                <h4 className="text-lg font-bold">Gizlilik (NDA) ve Tip Güvenli Mimari</h4>
-                <p className="text-xs text-indigo-100 leading-relaxed">
-                  Tüm proje görüşmeleri ilk andan itibaren NDA güvencesi altındadır.
+              <div className="p-6 rounded-2xl border border-dawn-500/25 bg-dawn-500/[0.04] space-y-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-dawn-600 dark:text-dawn-300">
+                  Güvence
+                </span>
+                <h4 className="font-display text-base font-semibold text-foreground">Gizlilik sözleşmesi</h4>
+                <p className="text-xs text-foreground/55 leading-relaxed">
+                  Paylaştığınız tüm fikirler ve belgeler, görüşmenin ilk anından itibaren gizlilik
+                  sözleşmesiyle korunur.
                 </p>
               </div>
 
-              {/* 🧮 HESAPLAYICI MODÜLÜ (UI BOZMADAN EKLENDİ) */}
-              <div className="p-6 rounded-2xl bg-slate-900 text-white border border-slate-800 space-y-4 shadow-xl">
-                <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
-                  <Calculator className="w-5 h-5 text-indigo-400" />
-                  <div>
-                    <h4 className="text-sm font-bold">AI Zaman Tasarrufu Hesaplayıcı</h4>
-                    <p className="text-[11px] text-slate-400">Otomasyonun ekibinize kazandıracağı süre</p>
-                  </div>
+              {/* HESAPLAYICI */}
+              <div className="p-6 rounded-2xl border border-foreground/10 space-y-4">
+                <div className="pb-3 border-b border-foreground/10">
+                  <h4 className="font-display text-sm font-semibold text-foreground">
+                    Ne kadar zaman kazanırsınız?
+                  </h4>
+                  <p className="text-[11px] text-foreground/45 mt-0.5">
+                    Otomasyonun ekibinize kazandırabileceği süreyi tahmin edin
+                  </p>
                 </div>
 
-                <div className="space-y-3 text-xs">
+                <div className="space-y-4 text-xs">
                   <div>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-slate-300">Manuel İş Saati (Haftalık/Kişi):</span>
-                      <span className="text-indigo-400 font-bold">{weeklyHours} Saat</span>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-foreground/60">Kişi başı haftalık manuel iş</span>
+                      <span className="text-dawn-600 dark:text-dawn-300 font-semibold">{weeklyHours} saat</span>
                     </div>
                     <input
-                      type="range" min="5" max="50" value={weeklyHours}
+                      type="range"
+                      min="5"
+                      max="50"
+                      value={weeklyHours}
                       onChange={(e) => setWeeklyHours(Number(e.target.value))}
-                      className="w-full accent-indigo-500 cursor-pointer h-1 bg-slate-800 rounded-lg"
+                      aria-label="Kişi başı haftalık manuel iş (saat)"
+                      className="w-full accent-[var(--color-dawn-500)] cursor-pointer h-1 rounded-lg"
                     />
                   </div>
-
                   <div>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-slate-300">Ekip Büyüklüğü:</span>
-                      <span className="text-indigo-400 font-bold">{teamSize} Kişi</span>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-foreground/60">Ekip büyüklüğü</span>
+                      <span className="text-dawn-600 dark:text-dawn-300 font-semibold">{teamSize} kişi</span>
                     </div>
                     <input
-                      type="range" min="1" max="25" value={teamSize}
+                      type="range"
+                      min="1"
+                      max="25"
+                      value={teamSize}
                       onChange={(e) => setTeamSize(Number(e.target.value))}
-                      className="w-full accent-indigo-500 cursor-pointer h-1 bg-slate-800 rounded-lg"
+                      aria-label="Ekip büyüklüğü (kişi)"
+                      className="w-full accent-[var(--color-dawn-500)] cursor-pointer h-1 rounded-lg"
                     />
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-indigo-950/60 border border-indigo-800/50 flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-foreground/[0.03] border border-foreground/10 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] text-indigo-300 font-bold uppercase block">Tahmini Yıllık Kazanım</span>
-                    <span className="text-xl font-black text-white">~{savedHoursYearly.toLocaleString()} Saat</span>
+                    <span className="text-[10px] text-foreground/40 font-semibold uppercase block">
+                      Tahmini yıllık kazanım
+                    </span>
+                    <motion.span
+                      key={savedHoursYearly}
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="text-xl font-bold text-foreground block"
+                    >
+                      ~{savedHoursYearly.toLocaleString('tr-TR')} saat
+                    </motion.span>
                   </div>
-                  <TrendingUp className="w-6 h-6 text-emerald-400" />
+                  <TrendingUp className="w-5 h-5 text-dawn-500" />
                 </div>
               </div>
-
             </motion.div>
 
-            {/* SAĞ İNTERAKTİF FORM */}
+            {/* SAĞ FORM */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, ease: EASE_OUT }}
               className="lg:col-span-7"
             >
-              <form
-                onSubmit={handleSubmit}
-                className="p-8 md:p-10 rounded-3xl bg-slate-50/80 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-800/80 space-y-8 shadow-xl backdrop-blur-sm"
-              >
-                <div className="space-y-3">
-                  <label className="text-xs uppercase tracking-wider font-bold text-slate-700 dark:text-slate-300">
-                    1. İhtiyacınız Olan Hizmet Türü
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {serviceOptions.map((item) => {
-                      const Icon = item.icon;
-                      const isSelected = selectedService === item.id;
-                      return (
-                        <button
-                          type="button"
-                          key={item.id}
-                          onClick={() => setSelectedService(item.id)}
-                          className={`p-4 rounded-2xl border text-left flex items-center gap-3 transition-all ${
-                            isSelected
-                              ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20'
-                              : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-indigo-400'
-                          }`}
-                        >
-                          <Icon className={`w-5 h-5 ${isSelected ? 'text-white' : 'text-indigo-600 dark:text-indigo-400'}`} />
-                          <span className="text-xs font-bold">{item.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
+              <div className="relative p-8 md:p-10 rounded-3xl border border-foreground/10 overflow-hidden min-h-[560px]">
+                <AnimatePresence mode="wait">
+                  {!submitted ? (
+                    <motion.form
+                      key="form"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.3 }}
+                      onSubmit={handleSubmit}
+                      className="space-y-7"
+                    >
+                      <div className="space-y-3">
+                        <label className="text-xs uppercase tracking-wider font-semibold text-foreground/50">
+                          İhtiyacınız olan hizmet
+                        </label>
+                        <div className="grid grid-cols-2 gap-3">
+                          {serviceOptions.map((item) => {
+                            const Icon = item.icon;
+                            const isSelected = selectedService === item.id;
+                            return (
+                              <motion.button
+                                type="button"
+                                key={item.id}
+                                whileTap={{ scale: 0.97 }}
+                                onClick={() => setSelectedService(item.id)}
+                                className={`p-4 rounded-xl border text-left flex items-center gap-3 transition-colors duration-200 ${
+                                  isSelected
+                                    ? 'bg-dawn text-white border-dawn-600'
+                                    : 'border-foreground/15 text-foreground/70 hover:border-dawn-500/40'
+                                }`}
+                              >
+                                <Icon className={`w-4 h-4 shrink-0 ${isSelected ? 'text-white' : 'text-dawn-600 dark:text-dawn-300'}`} />
+                                <span className="text-xs font-semibold">{item.label}</span>
+                              </motion.button>
+                            );
+                          })}
+                        </div>
+                      </div>
 
-                <div className="space-y-3">
-                  <label className="text-xs uppercase tracking-wider font-bold text-slate-700 dark:text-slate-300">
-                    2. Öngörülen Bütçe Aralığı
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {budgetOptions.map((budget) => (
-                      <button
-                        type="button"
-                        key={budget}
-                        onClick={() => setSelectedBudget(budget)}
-                        className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                          selectedBudget === budget
-                            ? 'bg-purple-600 text-white shadow-sm'
-                            : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:border-purple-400'
-                        }`}
+                      <div className="space-y-3">
+                        <label className="text-xs uppercase tracking-wider font-semibold text-foreground/50">
+                          Bütçe aralığınız <span className="text-foreground/35 normal-case font-normal">(opsiyonel)</span>
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {budgetOptions.map((budget) => (
+                            <motion.button
+                              type="button"
+                              key={budget}
+                              whileTap={{ scale: 0.97 }}
+                              onClick={() => setSelectedBudget(budget)}
+                              className={`px-4 py-2.5 rounded-lg text-xs font-semibold transition-colors duration-200 ${
+                                selectedBudget === budget
+                                  ? 'bg-dawn text-white'
+                                  : 'border border-foreground/15 text-foreground/60 hover:border-dawn-500/40'
+                              }`}
+                            >
+                              {budget}
+                            </motion.button>
+                          ))}
+                        </div>
+                        <p className="text-xs text-foreground/40">
+                          Bütçeniz netleşmediyse sorun değil, birlikte konuşuruz.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <label htmlFor="contact-name" className="text-xs font-semibold text-foreground/60">Adınız Soyadınız</label>
+                          <input
+                            id="contact-name"
+                            name="name"
+                            type="text"
+                            required
+                            placeholder="Ahmet Yılmaz"
+                            className="w-full px-4 py-3.5 rounded-lg border border-foreground/15 bg-transparent text-foreground text-sm placeholder-foreground/30 focus:outline-none focus:border-dawn-500/60 transition-colors duration-200"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label htmlFor="contact-email" className="text-xs font-semibold text-foreground/60">E-posta Adresiniz</label>
+                          <input
+                            id="contact-email"
+                            name="email"
+                            type="email"
+                            required
+                            placeholder="ahmet@sirketiniz.com"
+                            className="w-full px-4 py-3.5 rounded-lg border border-foreground/15 bg-transparent text-foreground text-sm placeholder-foreground/30 focus:outline-none focus:border-dawn-500/60 transition-colors duration-200"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label htmlFor="contact-summary" className="text-xs font-semibold text-foreground/60">Projeniz hakkında kısa özet</label>
+                        <textarea
+                          id="contact-summary"
+                          name="summary"
+                          rows={4}
+                          required
+                          placeholder="Projenizin hedefleri, mevcut altyapınız ve eklemek istediğiniz özellikler..."
+                          className="w-full px-4 py-3.5 rounded-lg border border-foreground/15 bg-transparent text-foreground text-sm placeholder-foreground/30 focus:outline-none focus:border-dawn-500/60 transition-colors duration-200 resize-none"
+                        />
+                      </div>
+
+                      <motion.button
+                        type="submit"
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full py-4 rounded-lg bg-dawn text-white font-semibold text-sm shadow-lg shadow-dawn-700/20 flex items-center justify-center gap-2 hover:brightness-110 transition-[filter] duration-200"
                       >
-                        {budget}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Adınız & Soyadınız</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Ahmet Yılmaz"
-                      className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300">E-posta Adresiniz</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="ahmet@sirketiniz.com"
-                      className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300">Projeniz Hakkında Kısa Özet</label>
-                  <textarea
-                    rows={4}
-                    required
-                    placeholder="Projenizin hedefleri, mevcut altyapınız ve eklemek istediğiniz özellikler..."
-                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 active:scale-95 hover:scale-[1.01] transition-all"
-                >
-                  {submitted ? (
-                    <>
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                      <span>Teklif Talebiniz Alındı!</span>
-                    </>
+                        <Send className="w-4 h-4" />
+                        <span>Teklif Talebini Gönder</span>
+                      </motion.button>
+                      <p className="text-center text-[11px] text-foreground/35">
+                        Gönder’e basarak{' '}
+                        <Link href="/gizlilik-politikasi" className="underline hover:text-foreground/60 transition-colors">
+                          Gizlilik Politikası
+                        </Link>
+                        ’nı kabul etmiş olursunuz.
+                      </p>
+                    </motion.form>
                   ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      <span>Teklif Talebini Gönder</span>
-                    </>
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="h-full min-h-[480px] flex flex-col items-center justify-center text-center gap-5"
+                    >
+                      <motion.div
+                        initial={{ scale: 0.4, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: 'spring', duration: 0.6, bounce: 0.45, delay: 0.1 }}
+                        className="w-16 h-16 rounded-full bg-dawn-500/10 border border-dawn-500/30 flex items-center justify-center"
+                      >
+                        <CheckCircle2 className="w-8 h-8 text-dawn-500" />
+                      </motion.div>
+                      <div className="space-y-2">
+                        <h3 className="font-display text-xl font-semibold text-foreground">
+                          Talebiniz alındı
+                        </h3>
+                        <p className="text-sm text-foreground/55 max-w-xs mx-auto leading-relaxed">
+                          En geç 24 saat içinde size dönüş yapacağız.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setSubmitted(false)}
+                        className="mt-2 text-xs font-semibold text-foreground/50 hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200"
+                      >
+                        Yeni bir talep gönder
+                      </button>
+                    </motion.div>
                   )}
-                </button>
-              </form>
+                </AnimatePresence>
+              </div>
             </motion.div>
-
           </div>
         </div>
       </section>
 
-      {/* 🛡️ İLETİŞİM GÜVENCE BANDI */}
-      <section className="py-12 border-y border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-900/20">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {guarantees.map((g, index) => {
-            const Icon = g.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 shadow-sm"
-              >
-                <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-white">{g.label}</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{g.desc}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+      {/* GÜVENCE ŞERİDİ */}
+      <section className="py-14 border-y border-foreground/10">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-foreground/10">
+          {guarantees.map((g, i) => (
+            <motion.div
+              key={g.label}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: i * 0.08, ease: EASE_OUT }}
+              className="py-5 md:py-0 md:px-7 first:md:pl-0 border-t md:border-t-0 border-foreground/10 first:border-t-0"
+            >
+              <h4 className="font-display text-sm font-semibold text-foreground">{g.label}</h4>
+              <p className="mt-1.5 text-xs text-foreground/55 leading-relaxed">{g.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* ❓ SIKÇA SORULAN SORULAR */}
-      <section className="py-20 bg-white dark:bg-slate-950">
-        <div className="max-w-4xl mx-auto px-6 md:px-12">
-          <motion.div
+      {/* SSS */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
+            transition={{ duration: 0.5, ease: EASE_OUT }}
+            className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-10"
           >
-            <span className="text-xs uppercase tracking-widest font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/50 px-4 py-1.5 rounded-full inline-block mb-4">
-              Aklınıza Takılanlar
-            </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-              Sıkça Sorulan Sorular
-            </h2>
-          </motion.div>
+            Sıkça sorulan sorular
+          </motion.h2>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {faqs.map((faq, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 15 }}
+                key={faq.question}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 overflow-hidden shadow-sm hover:border-indigo-500/30 transition-all"
+                transition={{ duration: 0.4, delay: index * 0.06, ease: EASE_OUT }}
+                className="rounded-xl border border-foreground/10 overflow-hidden"
               >
                 <button
                   onClick={() => toggleFaq(index)}
                   className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none"
                 >
-                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">
-                    {faq.question}
-                  </span>
+                  <span className="font-semibold text-foreground text-sm md:text-base">{faq.question}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-indigo-600 dark:text-indigo-400 transition-transform duration-300 ${
-                      openIndex === index ? "rotate-180" : ""
+                    className={`w-5 h-5 shrink-0 text-dawn-600 dark:text-dawn-300 transition-transform duration-300 ${
+                      openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
@@ -373,12 +413,12 @@ export default function ContactPage() {
                   {openIndex === index && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
+                      animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="px-6 pb-5 text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-200/50 dark:border-slate-800/50 pt-4"
+                      transition={{ duration: 0.3, ease: EASE_OUT }}
+                      className="px-6 text-sm text-foreground/55 leading-relaxed overflow-hidden"
                     >
-                      {faq.answer}
+                      <div className="pb-5 pt-1 border-t border-foreground/10 mt-1">{faq.answer}</div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -387,7 +427,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
     </main>
   );
 }

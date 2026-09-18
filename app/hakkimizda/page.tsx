@@ -1,223 +1,168 @@
 'use client';
 
+import Breadcrumb from '@/components/Breadcrumb';
 import React from 'react';
-import { Target, Cpu, ShieldCheck, Zap, FileText, ShieldAlert, Code, Layers, Network, Database } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const principles = [
+const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const values = [
   {
-    icon: Cpu,
-    title: "İleri Teknoloji",
-    description: "LLM'ler, mikrohizmetler ve modern JS ekosisteminin en güncel araçlarını kullanırız.",
-    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    n: '01',
+    title: 'Mühendislik önce gelir',
+    desc: 'Güzel görünen ama arkası boş sistemler kurmayız. Önce sağlam ve güvenilir çalışsın isteriz, görünüm sonra gelir.',
   },
   {
-    icon: Target,
-    title: "Ölçeklenebilirlik",
-    description: "İşiniz büyüdükçe tıkanmayan, esnek ve modüler veritabanı/backend mimarileri.",
-    color: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
+    n: '02',
+    title: 'Ölçeğinize göre esneriz',
+    desc: 'Küçük bir işletme de olsanız büyük bir kurum da, aynı özenle ve aynı ciddiyetle çalışırız.',
   },
   {
-    icon: ShieldCheck,
-    title: "Temiz Kod & Güvenlik",
-    description: "Güvenlik standartlarına uygun, bakımı kolay ve dokümante edilmiş kod altyapısı.",
-    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  },
-  {
-    icon: Zap,
-    title: "Yüksek Hız",
-    description: "SEO ve kullanıcı deneyimi için optimize edilmiş ultra hızlı sayfa yüklenmeleri.",
-    color: "bg-pink-500/10 text-pink-600 dark:text-pink-400",
+    n: '03',
+    title: 'Söz verdiğimizin arkasında dururuz',
+    desc: 'Kanıtlayamayacağımız rakamları kullanmayız. Ne söylüyorsak, teslim ederiz.',
   },
 ];
 
-const guarantees = [
-  {
-    icon: FileText,
-    title: "Gizlilik Sözleşmesi (NDA)",
-    description: "İş fikriniz, kaynak kodlarınız ve kurum içi verileriniz henüz proje başlamadan önce imzalanan NDA ile tamamen koruma altına alınır.",
-    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
-  },
-  {
-    icon: Code,
-    title: "%100 Kod Mülkiyeti",
-    description: "Geliştirilen tüm repository'ler, veritabanı mimarileri ve lisans hakları teslimat sonunda tamamen kurumunuza devredilir.",
-    color: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
-  },
-  {
-    icon: ShieldAlert,
-    title: "Sözleşmeli Destek (SLA)",
-    description: "Canlıya alım sonrasında oluşabilecek teknik acil durumlara müdahale süreleri sözleşme ile garanti altına alınır.",
-    color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  },
-];
-
-const blueprintSteps = [
-  { icon: Layers, title: "1. Data Input", desc: "API, Webhook ve Canlı Veri Akışı" },
-  { icon: Network, title: "2. AI Agent Orchestration", desc: "LangChain / CrewAI Vektör Bellek" },
-  { icon: Database, title: "3. Scalable Backend", desc: "Node.js & Redis Caching" },
-  { icon: Zap, title: "4. Fast Output", desc: "<200ms Kesintisiz Çıktı" },
-];
+const guarantees = ['Gizlilik sözleşmesi', '%100 kod mülkiyeti', 'Garantili destek'];
 
 export default function AboutPage() {
   return (
-    <main className="pt-20 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
-      
-      {/* VİZYON & YAKLAŞIM SECTION */}
-      <section className="py-24 relative border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-900/10">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-6 space-y-6"
-            >
-              <span className="text-xs uppercase tracking-widest font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/50 px-4 py-1.5 rounded-full inline-block">
-                Vizyon & Yaklaşım
-              </span>
-              
-              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                Geleceğin Yazılımlarını <br />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
-                  AI Odaklı Mimarilerle
-                </span> İnşa Ediyoruz
-              </h1>
-
-              <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Zora Yazılım; modern web teknolojileri, otonom yapay zeka ajanları (Multi-Agent Systems) ve ölçeklenebilir backend altyapılarını bir araya getiren bir teknoloji şirketidir.
-              </p>
-
-              <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                Geleneksel yazılım yaklaşımlarının ötesine geçerek; işletmelerin iş süreçlerini otomatikleştiren, yüksek trafik altında kesintisiz çalışan ve sürdürülebilir kod standartlarına sahip mimariler tasarlıyoruz.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 pt-4">
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm transition-all"
-                >
-                  <h4 className="text-2xl font-black text-indigo-600 dark:text-indigo-400">%99.9</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Sistem Erişilebilirliği & Performans</p>
-                </motion.div>
-                
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  className="p-4 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm transition-all"
-                >
-                  <h4 className="text-2xl font-black text-purple-600 dark:text-purple-400">AI-First</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Otonom Ajan Entegrasyonu</p>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {principles.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    whileHover={{ y: -6 }}
-                    className="p-6 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-xl hover:border-indigo-500/40 space-y-3 transition-all duration-300"
-                  >
-                    <div className={`w-10 h-10 rounded-lg ${item.color} flex items-center justify-center`}>
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">{item.title}</h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {item.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-          </div>
+    <main className="min-h-screen bg-background text-foreground transition-colors duration-300 overflow-hidden">
+      {/* GİRİŞ — sakin, ortalanmış bir manifesto */}
+      <section className="relative pt-40 pb-24 md:pt-52 md:pb-32 overflow-hidden border-b border-foreground/10">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div
+            className="absolute left-1/2 top-[-10%] -translate-x-1/2 w-[640px] h-[640px] rounded-full blur-[150px] opacity-70"
+            style={{
+              background:
+                'radial-gradient(circle, color-mix(in srgb, var(--color-dawn-400) 16%, transparent) 0%, transparent 70%)',
+            }}
+          />
+        </div>
+        <div className="max-w-3xl mx-auto px-6 md:px-12 relative z-10 text-center">
+          <Breadcrumb items={[{ label: 'Ana Sayfa', href: '/' }, { label: 'Hakkımızda' }]} center />
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE_OUT }}
+            className="font-display font-semibold text-4xl md:text-6xl text-foreground leading-[1.15] tracking-tight"
+          >
+            Yazılım ve yapay zekayı aynı çatı altında buluşturan bir ekibiz.
+          </motion.h1>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: EASE_OUT }}
+            className="mt-8 mx-auto w-12 h-px bg-dawn-500"
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35, ease: EASE_OUT }}
+            className="mt-8 text-base md:text-lg text-foreground/55 leading-relaxed max-w-xl mx-auto"
+          >
+            Küçük bir işletmenin ilk web sitesinden, büyük bir şirketin otonom sistemlerine kadar
+            aynı özenle çalışırız.
+          </motion.p>
         </div>
       </section>
 
-      {/* 🏛️ B2B ARCHITECTURE BLUEPRINT (GÖRSEL AKIŞ KARTI) */}
-      <section className="py-16 bg-slate-900 text-white border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">Enterprise Architecture</span>
-              <h3 className="text-2xl font-extrabold text-white">Zora Sistem Mimarisi Blueprint</h3>
-            </div>
-            <p className="text-xs text-slate-400 max-w-md">Projelerimizde uyguladığımız modüler ve AI destekli katmanlı altyapı şeması.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {blueprintSteps.map((bp, i) => {
-              const Icon = bp.icon;
-              return (
-                <div key={i} className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-                  <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <h4 className="text-sm font-bold text-white">{bp.title}</h4>
-                  <p className="text-xs text-slate-400">{bp.desc}</p>
+      {/* DEĞERLER — zikzak düzen, büyük soluk rakamlar */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: EASE_OUT }}
+            className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-16 text-center"
+          >
+            Nasıl çalışırız
+          </motion.h2>
+          <div className="space-y-14 md:space-y-20">
+            {values.map((v, i) => (
+              <motion.div
+                key={v.n}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: EASE_OUT }}
+                className={`relative flex items-start gap-5 md:gap-10 ${
+                  i % 2 === 1 ? 'md:flex-row-reverse text-right md:text-right' : 'text-left'
+                }`}
+              >
+                <span
+                  aria-hidden="true"
+                  className="font-display text-7xl md:text-8xl font-bold text-dawn-500/10 leading-none shrink-0 select-none"
+                >
+                  {v.n}
+                </span>
+                <div className={i % 2 === 1 ? 'md:flex md:flex-col md:items-end' : ''}>
+                  <h3 className="font-display text-xl md:text-2xl font-semibold text-foreground">{v.title}</h3>
+                  <p className="mt-3 text-sm md:text-base text-foreground/55 leading-relaxed max-w-md">{v.desc}</p>
                 </div>
-              );
-            })}
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* TAAHHÜTLER & GÜVENCELER SECTION */}
-      <section className="py-20 bg-white dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+      {/* GÜVENCELER — sade rozet satırı */}
+      <section className="py-14 border-y border-foreground/10">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+          <p className="text-xs uppercase tracking-widest text-foreground/40 font-semibold mb-6">
+            Güvenceler
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {guarantees.map((g) => (
+              <span
+                key={g}
+                className="px-4 py-2 rounded-full border border-foreground/15 text-sm text-foreground/70"
+              >
+                {g}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* İLETİŞİM ÇAĞRISI — sakin, çerçeveli kutu */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            transition={{ duration: 0.5, ease: EASE_OUT }}
+            className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-8 md:p-10 rounded-2xl border border-foreground/10"
           >
-            <span className="text-xs uppercase tracking-widest font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/50 px-4 py-1.5 rounded-full inline-block mb-4">
-              Şeffaflık & Güven
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
-              Kurumsal Taahhütlerimiz
-            </h2>
-            <p className="mt-4 text-slate-600 dark:text-slate-400 text-sm md:text-base">
-              İş ortaklarımıza sunduğumuz hukuki, teknik ve operasyonel güvenceler.
-            </p>
+            <div className="max-w-sm space-y-3">
+              <h2 className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-foreground">
+                Bizi tanıdınız, şimdi projenizi konuşalım
+              </h2>
+              <p className="text-sm text-foreground/50">
+                <Link href="/hizmetler" className="font-semibold hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200">
+                  Hizmetlerimize
+                </Link>
+                {' '}veya{' '}
+                <Link href="/projeler" className="font-semibold hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200">
+                  tamamladığımız projelere
+                </Link>
+                {' '}göz atabilirsiniz.
+              </p>
+            </div>
+            <Link
+              href="/iletisim"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-dawn rounded-lg shadow-lg shadow-dawn-700/20 active:scale-[0.97] hover:brightness-110 transition-[filter,transform] duration-200"
+            >
+              İletişime Geçin <ArrowRight className="w-4 h-4" />
+            </Link>
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {guarantees.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.15 }}
-                  whileHover={{ scale: 1.03 }}
-                  className="p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 space-y-4 hover:border-indigo-500/50 hover:shadow-xl transition-all duration-300"
-                >
-                  <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center`}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold">{item.title}</h3>
-                  <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {item.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
         </div>
       </section>
-
     </main>
   );
 }

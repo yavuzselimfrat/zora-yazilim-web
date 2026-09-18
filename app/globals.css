@@ -3,25 +3,61 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #090d16;
+  --background: #fbfaf8;
+  --foreground: #0b0b10;
 }
 
-/* Butona basıp dark moda geçildiğinde değişkenleri güncelle */
 .dark {
-  --background: #020617;
-  --foreground: #f8fafc;
+  --background: #09090d;
+  --foreground: #f5f2ec;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-display-sans);
+  --font-accent: var(--font-accent-serif);
+
+  /* Muted burnt-orange "dawn" accent. One accent color for the whole site;
+     shades are chosen for verified contrast, not for looks alone:
+     dawn-300 reads on dark grounds, dawn-700 reads on light grounds,
+     dawn-500/600 pass on either as large display type. */
+  --color-dawn-300: #e8b583;
+  --color-dawn-400: #d99456;
+  --color-dawn-500: #c97a42;
+  --color-dawn-600: #b35f34;
+  --color-dawn-700: #8f4726;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* The page's one gradient moment, reserved for a single headline emphasis.
+   Range is deliberately narrow (500-600) so it stays legible as large type
+   in both themes instead of a wide, decorative AI-gradient. */
+.text-dawn {
+  background-image: linear-gradient(100deg, var(--color-dawn-500), var(--color-dawn-600));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Solid CTA fill. Kept independent of the text gradient so white button
+   labels always clear 4.5:1 contrast. */
+.bg-dawn {
+  background-image: linear-gradient(100deg, var(--color-dawn-600), var(--color-dawn-700));
+}
+
+/* Recurring motif: a low horizon of light rising from the bottom edge. */
+.horizon-glow {
+  background-image: radial-gradient(
+    120% 100% at 50% 120%,
+    color-mix(in srgb, var(--color-dawn-500) 26%, transparent) 0%,
+    color-mix(in srgb, var(--color-dawn-600) 12%, transparent) 40%,
+    transparent 70%
+  );
 }

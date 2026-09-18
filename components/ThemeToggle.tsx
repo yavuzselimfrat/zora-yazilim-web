@@ -12,18 +12,21 @@ export default function ThemeToggle() {
         setMounted(true);
     }, []);
 
-    if (!mounted) return null;
+    if (!mounted) {
+        // Işık/karanlık bilinene kadar düzeni kaydırmayan sabit boyutlu bir yer tutucu.
+        return <div className="w-9 h-9" aria-hidden="true" />;
+    }
 
     return (
         <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:scale-105 transition-all shadow-sm cursor-pointer"
-            aria-label="Tema Değiştir"
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-foreground/[0.04] hover:bg-foreground/[0.07] border border-foreground/10 text-foreground/70 transition-colors duration-200 cursor-pointer"
+            aria-label="Tema değiştir"
         >
             {theme === "dark" ? (
-                <Sun className="w-5 h-5 text-amber-400" />
+                <Sun className="w-4 h-4" />
             ) : (
-                <Moon className="w-5 h-5 text-indigo-600" />
+                <Moon className="w-4 h-4" />
             )}
         </button>
     );

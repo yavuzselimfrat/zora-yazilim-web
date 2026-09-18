@@ -2,89 +2,99 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, ArrowRight, Terminal } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import LiveHorizon from './LiveHorizon';
+
+const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+/**
+ * Splits a line into words and reveals them one by one with a soft
+ * blur-to-focus motion, staggered left to right. Reads as a "live" typing-in
+ * headline without any video/3D asset — pure text + timing.
+ */
+const HeadlineWords: React.FC<{ text: string; delayStart: number; className?: string }> = ({
+  text,
+  delayStart,
+  className,
+}) => {
+  const words = text.split(' ');
+  return (
+    <>
+      {words.map((word, i) => (
+        <motion.span
+          key={`${word}-${i}`}
+          initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.65, delay: delayStart + i * 0.06, ease: EASE_OUT }}
+          className={`inline-block ${className ?? ''}`}
+        >
+          {word}
+          {i < words.length - 1 ? ' ' : ''}
+        </motion.span>
+      ))}
+    </>
+  );
+};
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
-      {/* Arka Plan Glow Efekti (Animated) */}
-      <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/10 rounded-full blur-3xl pointer-events-none"
-      />
+    <section className="relative pt-40 pb-32 md:pt-48 md:pb-40 overflow-hidden bg-background transition-colors duration-300">
+      <LiveHorizon />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          
-          {/* ROZET */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300 backdrop-blur-md shadow-sm"
+      <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
+        <h1 className="font-display text-5xl sm:text-6xl lg:text-[5.25rem] font-semibold tracking-tight text-foreground leading-[1.02]">
+          <HeadlineWords text="Ölçeklenebilir altyapılar," delayStart={0.1} />
+          <br />
+          <HeadlineWords text="otonom AI ajanları." delayStart={0.1 + 3 * 0.06} className="text-dawn" />
+        </h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55, ease: EASE_OUT }}
+          className="mt-7 text-lg sm:text-xl text-foreground/55 max-w-xl leading-relaxed"
+        >
+          KOBİ’den kurumsal şirketlere, ölçeğinize uygun web ve yapay zeka çözümleri sunuyoruz.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.68, ease: EASE_OUT }}
+          className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+        >
+          <Link
+            href="/iletisim"
+            className="group px-7 py-3.5 rounded-lg bg-dawn text-white font-semibold text-sm shadow-lg shadow-dawn-700/20 flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.97] transition-[filter,transform] duration-200"
           >
-            <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-            <span>Geleceğin Teknolojileri ile Güçlendirilmiş Mimariler</span>
-          </motion.div>
+            <span>Proje Başlatın</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+          </Link>
 
-          {/* ANA BAŞLIK */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]"
+          <Link
+            href="/projeler"
+            className="px-7 py-3.5 text-foreground/70 hover:text-foreground font-semibold text-sm flex items-center justify-center gap-2 transition-colors duration-200"
           >
-            Ölçeklenebilir Altyapılar & <br className="hidden sm:inline" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
-              Otonom AI Ajanları
-            </span>
-          </motion.h1>
-
-          {/* AÇIKLAMA PARAGRAFI */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
-          >
-            Zora Yazılım; işletmeler için yüksek performanslı web platformları, otonom yapay zeka ajanları ve kesintisiz çalışan backend mimarileri inşa eder.
-          </motion.p>
-
-          {/* AKSİYON BUTONLARI */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
-          >
-            <Link
-              href="/iletisim"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all duration-200"
-            >
-              <span>Projenizi Başlatın</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <Link
-              href="/projeler"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-900 dark:text-slate-100 font-semibold text-sm border border-slate-200 dark:border-slate-800 flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all duration-200"
-            >
-              <Terminal className="w-4 h-4 text-indigo-500" />
-              <span>Projelerimizi İnceleyin</span>
-            </Link>
-          </motion.div>
-
-        </div>
+            <span>Projelerimizi inceleyin</span>
+          </Link>
+        </motion.div>
       </div>
+
+      {/* Scroll cue: a breathing line, not a decorative dot. */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1, duration: 0.8 }}
+        className="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-10"
+        aria-hidden="true"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          className="w-px h-9 bg-gradient-to-b from-foreground/0 via-foreground/35 to-foreground/0"
+        />
+      </motion.div>
     </section>
   );
 };

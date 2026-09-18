@@ -1,203 +1,173 @@
 'use client';
 
+import Breadcrumb from '@/components/Breadcrumb';
 import React from 'react';
-import { Bot, Cpu, Globe, ArrowRight, Search, Compass, Rocket } from 'lucide-react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AmbientGlow from '@/components/sections/AmbientGlow';
+
+const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const services = [
   {
-    icon: Bot,
-    title: 'Otonom AI Ajanları & LLM',
-    description: 'İşletmenizin veri kaynaklarıyla entegre çalışan, müşteri destek, analiz ve karar alma süreçlerini otomatikleştiren Multi-Agent çözümleri.',
-    color: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400',
+    n: '01',
+    title: 'Otonom AI Ajanları',
+    desc: 'Kararlar alan, sizin yerinize harekete geçen yapay zeka sistemleri kurarız. Müşteri sorularını yanıtlamaktan stok takibine kadar, tekrar eden işleri devralır.',
+    note: 'Örnekler: müşteri desteği, randevu yönetimi, stok ve sipariş takibi.',
   },
   {
-    icon: Cpu,
-    title: 'Ölçeklenebilir Backend Systems',
-    description: 'Yüksek eşzamanlı kullanıcı trafiği altında tıkanmayan, mikrohizmet mimarisine sahip Node.js ve cloud veritabanı çözümleri.',
-    color: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+    n: '02',
+    title: 'Ölçeklenebilir Backend Sistemleri',
+    desc: 'Ziyaretçi ya da kullanıcı sayınız artsa da yavaşlamayan, çökmeyen sistemler kurarız. İşiniz büyüdükçe altyapınız da sorunsuz şekilde büyür.',
+    note: 'Yoğun trafik dönemlerinde de kesintisiz çalışacak şekilde tasarlarız.',
   },
   {
-    icon: Globe,
-    title: 'Özel Web Platformları',
-    description: 'SEO standartlarına uygun, Next.js ve Tailwind CSS altyapılı, milisaniyeler seviyesinde sayfa açılış hızına sahip kurumsal platformlar.',
-    color: 'bg-pink-500/10 text-pink-600 dark:text-pink-400',
+    n: '03',
+    title: 'Kurumsal Web Platformları',
+    desc: 'Google’da kolay bulunan, hızlı açılan ve mobilde sorunsuz görünen web siteleri tasarlarız. Sonrasında içeriklerinizi kolayca güncelleyebilirsiniz.',
+    note: 'Küçük bir işletmenin ilk web sitesinden, çok sayfalı kurumsal platformlara kadar.',
   },
 ];
 
 const steps = [
-  {
-    number: "01",
-    title: "Keşif & Teknik Analiz",
-    description: "İş ihtiyaçlarınızı, darboğazlarınızı ve hedeflerinizi dinler; projenize özel mimari şemayı oluştururuz.",
-    icon: Search,
-  },
-  {
-    number: "02",
-    title: "Mimari & Prototip Tasarımı",
-    description: "Veritabanı modellerini, API uç noktalarını ve AI/LLM entegrasyon kanallarını ölçeklenebilir biçimde kurgularız.",
-    icon: Compass,
-  },
-  {
-    number: "03",
-    title: "Çevik (Agile) Geliştirme",
-    description: "Haftalık sprintler halinde şeffaf kodlama süreci yürütür, sürekli entegrasyon (CI/CD) ile gelişimi test ettiririz.",
-    icon: Cpu,
-  },
-  {
-    number: "04",
-    title: "Canlıya Alım & İzleme (SLA)",
-    description: "Projenizi yüksek performanslı sunuculara canlıya alır, kesintisiz izleme ve bakım desteği sağlarız.",
-    icon: Rocket,
-  },
-];
-
-const techStack = [
-  'React', 'Next.js 14', 'Node.js', 'TypeScript', 'Tailwind CSS',
-  'Python', 'LangChain', 'CrewAI', 'PostgreSQL', 'Docker', 'Plesk', 'cPanel'
+  { n: '01', title: 'Keşif & Analiz', desc: 'İhtiyaçlarınızı, hedeflerinizi ve teknik kısıtları birlikte çıkarırız.' },
+  { n: '02', title: 'Mimari & Prototip', desc: 'Sistemin nasıl çalışacağını önce prototip üzerinde netleştiririz.' },
+  { n: '03', title: 'Çevik Geliştirme', desc: 'Haftalık olarak sizinle paylaşarak, şeffaf şekilde geliştiririz.' },
+  { n: '04', title: 'Canlıya Alım & İzleme', desc: 'Sitenizi ya da sisteminizi yayına alır, sonrasında da düzenli olarak takip etmeye devam ederiz.' },
 ];
 
 export default function ServicesPage() {
   return (
-    <main className="pt-20 overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300">
-      
-      {/* B2B HİZMETLERİMİZ */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <motion.div
+    <main className="min-h-screen bg-background text-foreground transition-colors duration-300 overflow-hidden">
+      {/* GİRİŞ */}
+      <section className="relative pt-40 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+        <AmbientGlow />
+        <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
+          <Breadcrumb items={[{ label: 'Ana Sayfa', href: '/' }, { label: 'Hizmetler' }]} />
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
+            className="font-display text-3xl md:text-5xl font-semibold tracking-tight text-foreground leading-[1.15]"
           >
-            <span className="text-xs uppercase tracking-widest font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/50 px-4 py-1.5 rounded-full inline-block mb-4">
-              B2B Hizmetlerimiz
-            </span>
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              İşinizi Büyütecek <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
-                Yazılım Çözümleri
-              </span>
-            </h1>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((srv, index) => {
-              const Icon = srv.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.15 }}
-                  whileHover={{ y: -8 }}
-                  className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 hover:border-indigo-500/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-                >
-                  <div className="space-y-4">
-                    <div className={`w-12 h-12 rounded-2xl ${srv.color} flex items-center justify-center`}>
-                      <Icon className="w-6 h-6" />
-                    </div>
-
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                      {srv.title}
-                    </h3>
-
-                    <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {srv.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-6 mt-6 border-t border-slate-200/60 dark:border-slate-800/60">
-                    <Link
-                      href="/iletisim"
-                      className="inline-flex items-center gap-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:gap-3 transition-all"
-                    >
-                      <span>Detaylı Bilgi Alın</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+            İhtiyacınıza göre şekillenen{' '}
+            <span className="text-dawn-600 dark:text-dawn-300">yazılım çözümleri</span>.
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
+            className="mt-6 text-lg md:text-xl text-foreground/55 leading-relaxed max-w-2xl"
+          >
+            Küçük bir işletmenin ilk web sitesinden, büyük bir şirketin otonom yapay zeka
+            sistemlerine kadar, ölçeğinize uygun çözümler sunarız.
+          </motion.p>
         </div>
       </section>
 
-      {/* METODOLOJİ SÜRECİ */}
-      <section className="py-20 bg-slate-50/50 dark:bg-slate-900/20 border-y border-slate-200/80 dark:border-slate-800/80">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <motion.div
+      {/* HİZMETLER — büyük rakamlı satır bloklar */}
+      <section className="py-20 md:py-28 border-t border-foreground/10">
+        <div className="max-w-5xl mx-auto px-6 md:px-12">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            transition={{ duration: 0.5, ease: EASE_OUT }}
+            className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-4"
           >
-            <span className="text-xs uppercase tracking-widest font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100/80 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/50 px-4 py-1.5 rounded-full inline-block mb-4">
-              Uçtan Uca Süreç
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
-              Projenizi Nasıl Geliştiriyoruz?
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.15 }}
-                  whileHover={{ y: -8 }}
-                  className="p-6 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800/80 relative space-y-4 shadow-sm hover:shadow-xl hover:border-indigo-500/40 transition-all duration-300"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-3xl font-black text-indigo-600/30 dark:text-indigo-400/30">
-                      {step.number}
-                    </span>
-                    <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                    {step.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {step.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* TEKNOLOJİ YIĞINI */}
-      <section className="py-16 bg-white dark:bg-slate-950 text-center">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <p className="text-xs uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 mb-8">
-            Kullandığımız Modern Teknoloji Yığını
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {techStack.map((tech, index) => (
-              <motion.span
-                key={index}
-                whileHover={{ scale: 1.1 }}
-                className="px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm cursor-default"
+            Neler yapıyoruz
+          </motion.h2>
+          <div>
+            {services.map((s, i) => (
+              <motion.div
+                key={s.n}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease: EASE_OUT }}
+                className="grid md:grid-cols-[auto_1fr] gap-4 md:gap-12 items-start py-10 md:py-14 border-t border-foreground/10"
               >
-                {tech}
-              </motion.span>
+                <span className="font-display text-5xl md:text-6xl font-bold text-dawn-600 dark:text-dawn-300 leading-none">
+                  {s.n}
+                </span>
+                <div>
+                  <h3 className="font-display text-xl md:text-2xl font-semibold text-foreground">{s.title}</h3>
+                  <p className="mt-3 text-sm md:text-base text-foreground/55 leading-relaxed max-w-2xl">{s.desc}</p>
+                  <p className="mt-4 text-xs text-foreground/40 uppercase tracking-wide">{s.note}</p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* SÜREÇ — dikey zaman çizelgesi */}
+      <section className="py-20 border-y border-foreground/10 bg-foreground/[0.02]">
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: EASE_OUT }}
+            className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-14"
+          >
+            Süreç nasıl işliyor
+          </motion.h2>
+
+          <div className="relative pl-8 md:pl-10">
+            <div className="absolute left-[3px] md:left-[4px] top-2 bottom-2 w-px bg-foreground/10" aria-hidden="true" />
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.n}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: i * 0.08, ease: EASE_OUT }}
+                className="relative pb-12 last:pb-0"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-8 md:-left-[38px] top-1.5 w-[9px] h-[9px] rounded-full bg-dawn-500 ring-4 ring-background"
+                />
+                <span className="text-xs font-semibold text-dawn-600 dark:text-dawn-300">{step.n}</span>
+                <h3 className="mt-1 font-display text-lg font-semibold text-foreground">{step.title}</h3>
+                <p className="mt-2 text-sm text-foreground/55 leading-relaxed max-w-md">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* İLETİŞİM ÇAĞRISI */}
+      <section className="relative py-20 overflow-hidden">
+        <AmbientGlow />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: EASE_OUT }}
+          className="relative z-10 max-w-3xl mx-auto px-6 text-left md:text-center space-y-6"
+        >
+          <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+            Projenize en uygun çözümü birlikte belirleyelim
+          </h2>
+          <div className="pt-2 flex flex-col items-start md:items-center gap-4">
+            <Link
+              href="/iletisim"
+              className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-dawn rounded-lg shadow-lg shadow-dawn-700/20 active:scale-[0.97] hover:brightness-110 transition-[filter,transform] duration-200"
+            >
+              Teklif Alın <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/projeler"
+              className="text-sm font-semibold text-foreground/50 hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200"
+            >
+              Tamamladığımız projelere göz atın
+            </Link>
+          </div>
+        </motion.div>
+      </section>
     </main>
   );
 }
