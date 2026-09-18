@@ -5,6 +5,7 @@ import { ThemeProvider } from "../components/ThemeProvider";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
+import CookieNotice from "../components/CookieNotice";
 import Script from "next/script";
 
 const inter = Inter({
@@ -103,6 +104,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <WhatsAppButton />
+          <CookieNotice />
         </ThemeProvider>
       </body>
     </html>

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AmbientGlow from '@/components/sections/AmbientGlow';
+import ProjectShot from '@/components/sections/ProjectShot';
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -16,6 +17,7 @@ const clientProjects = [
     desc: 'Forklift lastiği ve otomotiv sektöründe faaliyet gösteren firma için kurumsal web sitesi. Arama motorlarında bulunabilirlik ve hızlı sayfa açılışı önceliğimizdi.',
     highlights: ['Hızlı yüklenen sayfalar', 'Arama motoru uyumlu yapı'],
     link: 'https://uriotomotiv.com',
+    images: ['/projects/uriotomotiv-1.jpg', '/projects/uriotomotiv-2.jpg', '/projects/uriotomotiv-3.jpg'],
   },
   {
     title: 'Derka Teknik',
@@ -23,6 +25,7 @@ const clientProjects = [
     desc: 'Endüstriyel makine firması için modern bir kurumsal site. Harita entegrasyonu ile şube ve bayi konumlarını ziyaretçilere net şekilde gösterdik.',
     highlights: ['Harita ve konum entegrasyonu', 'Kolay güncellenebilir içerik'],
     link: 'https://derkateknik.com',
+    images: ['/projects/derkateknik-1.jpg', '/projects/derkateknik-2.jpg', '/projects/derkateknik-3.jpg'],
   },
 ];
 
@@ -64,39 +67,48 @@ export default function ProjectsPage() {
             className="relative overflow-hidden rounded-3xl border border-foreground/10 p-8 md:p-14"
           >
             <AmbientGlow />
-            <div className="relative z-10">
-              <span className="inline-block text-xs font-semibold uppercase tracking-widest text-dawn-600 dark:text-dawn-300 border border-dawn-500/30 rounded-full px-3 py-1 mb-6">
-                Kendi ürünümüz
-              </span>
-              <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-                Vetly
-              </h2>
-              <p className="mt-2 text-sm md:text-base text-foreground/50 uppercase tracking-wide">
-                Veteriner klinikleri için yönetim yazılımı
-              </p>
-              <p className="mt-6 text-base md:text-lg text-foreground/60 leading-relaxed max-w-2xl">
-                Randevu takviminden hasta kayıtlarına, stok takibinden faturalandırmaya kadar bir
-                veteriner kliniğinin ihtiyaç duyduğu her şeyi tek ekranda topluyoruz. Kendi
-                ürettiğimiz ve geliştirmeye devam ettiğimiz bir yazılım.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-                {['Randevu ve hasta takibi', 'Stok ve faturalandırma', 'Yapay zeka destekli klinik araçları'].map(
-                  (h) => (
-                    <span key={h} className="text-sm text-foreground/60 flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-dawn-500" aria-hidden="true" />
-                      {h}
-                    </span>
-                  )
-                )}
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="order-first">
+                <ProjectShot
+                  images={['/projects/vetly-1.jpg', '/projects/vetly-2.jpg', '/projects/vetly-3.jpg']}
+                  alt="Vetly veteriner klinik yönetim yazılımı ekran görüntüsü"
+                  aspect="aspect-[4/3]"
+                />
               </div>
-              <a
-                href="https://vetly.com.tr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200"
-              >
-                vetly.com.tr <ArrowUpRight className="w-4 h-4" />
-              </a>
+              <div>
+                <span className="inline-block text-xs font-semibold uppercase tracking-widest text-dawn-600 dark:text-dawn-300 border border-dawn-500/30 rounded-full px-3 py-1 mb-6">
+                  Kendi ürünümüz
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                  Vetly
+                </h2>
+                <p className="mt-2 text-sm md:text-base text-foreground/50 uppercase tracking-wide">
+                  Veteriner klinikleri için yönetim yazılımı
+                </p>
+                <p className="mt-6 text-base md:text-lg text-foreground/60 leading-relaxed">
+                  Randevu takviminden hasta kayıtlarına, stok takibinden faturalandırmaya kadar bir
+                  veteriner kliniğinin ihtiyaç duyduğu her şeyi tek ekranda topluyoruz. Kendi
+                  ürettiğimiz ve geliştirmeye devam ettiğimiz bir yazılım.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+                  {['Randevu ve hasta takibi', 'Stok ve faturalandırma', 'Yapay zeka destekli klinik araçları'].map(
+                    (h) => (
+                      <span key={h} className="text-sm text-foreground/60 flex items-center gap-2">
+                        <span className="w-1 h-1 rounded-full bg-dawn-500" aria-hidden="true" />
+                        {h}
+                      </span>
+                    )
+                  )}
+                </div>
+                <a
+                  href="https://vetly.com.tr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200"
+                >
+                  vetly.com.tr <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -114,7 +126,7 @@ export default function ProjectsPage() {
           >
             Kurumsal projeler
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
             {clientProjects.map((p, i) => (
               <motion.div
                 key={p.title}
@@ -124,7 +136,13 @@ export default function ProjectsPage() {
                 transition={{ duration: 0.45, delay: i * 0.08, ease: EASE_OUT }}
                 className="py-8 md:py-10 border-t border-foreground/10"
               >
-                <p className="text-xs font-semibold uppercase tracking-wide text-foreground/40">{p.category}</p>
+                <ProjectShot
+                  images={p.images}
+                  alt={p.title}
+                  aspect="aspect-video"
+                  delay={i * 0.1}
+                />
+                <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-foreground/40">{p.category}</p>
                 <h3 className="mt-2 font-display text-xl md:text-2xl font-semibold text-foreground">{p.title}</h3>
                 <p className="mt-3 text-sm md:text-base text-foreground/55 leading-relaxed">{p.desc}</p>
                 <div className="mt-5 flex flex-wrap gap-2">

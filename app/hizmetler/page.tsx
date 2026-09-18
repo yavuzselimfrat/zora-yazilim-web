@@ -3,7 +3,7 @@
 import Breadcrumb from '@/components/Breadcrumb';
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Bot, Server, Globe2, Search, Blocks, GitBranch, Rocket } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AmbientGlow from '@/components/sections/AmbientGlow';
 
@@ -12,18 +12,21 @@ const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const services = [
   {
     n: '01',
+    icon: Bot,
     title: 'Otonom AI Ajanları',
     desc: 'Kararlar alan, sizin yerinize harekete geçen yapay zeka sistemleri kurarız. Müşteri sorularını yanıtlamaktan stok takibine kadar, tekrar eden işleri devralır.',
     note: 'Örnekler: müşteri desteği, randevu yönetimi, stok ve sipariş takibi.',
   },
   {
     n: '02',
+    icon: Server,
     title: 'Ölçeklenebilir Backend Sistemleri',
     desc: 'Ziyaretçi ya da kullanıcı sayınız artsa da yavaşlamayan, çökmeyen sistemler kurarız. İşiniz büyüdükçe altyapınız da sorunsuz şekilde büyür.',
     note: 'Yoğun trafik dönemlerinde de kesintisiz çalışacak şekilde tasarlarız.',
   },
   {
     n: '03',
+    icon: Globe2,
     title: 'Kurumsal Web Platformları',
     desc: 'Google’da kolay bulunan, hızlı açılan ve mobilde sorunsuz görünen web siteleri tasarlarız. Sonrasında içeriklerinizi kolayca güncelleyebilirsiniz.',
     note: 'Küçük bir işletmenin ilk web sitesinden, çok sayfalı kurumsal platformlara kadar.',
@@ -31,10 +34,10 @@ const services = [
 ];
 
 const steps = [
-  { n: '01', title: 'Keşif & Analiz', desc: 'İhtiyaçlarınızı, hedeflerinizi ve teknik kısıtları birlikte çıkarırız.' },
-  { n: '02', title: 'Mimari & Prototip', desc: 'Sistemin nasıl çalışacağını önce prototip üzerinde netleştiririz.' },
-  { n: '03', title: 'Çevik Geliştirme', desc: 'Haftalık olarak sizinle paylaşarak, şeffaf şekilde geliştiririz.' },
-  { n: '04', title: 'Canlıya Alım & İzleme', desc: 'Sitenizi ya da sisteminizi yayına alır, sonrasında da düzenli olarak takip etmeye devam ederiz.' },
+  { n: '01', icon: Search, title: 'Keşif & Analiz', desc: 'İhtiyaçlarınızı, hedeflerinizi ve teknik kısıtları birlikte çıkarırız.' },
+  { n: '02', icon: Blocks, title: 'Mimari & Prototip', desc: 'Sistemin nasıl çalışacağını önce prototip üzerinde netleştiririz.' },
+  { n: '03', icon: GitBranch, title: 'Çevik Geliştirme', desc: 'Haftalık olarak sizinle paylaşarak, şeffaf şekilde geliştiririz.' },
+  { n: '04', icon: Rocket, title: 'Canlıya Alım & İzleme', desc: 'Sitenizi ya da sisteminizi yayına alır, sonrasında da düzenli olarak takip etmeye devam ederiz.' },
 ];
 
 export default function ServicesPage() {
@@ -92,7 +95,12 @@ export default function ServicesPage() {
                   {s.n}
                 </span>
                 <div>
-                  <h3 className="font-display text-xl md:text-2xl font-semibold text-foreground">{s.title}</h3>
+                  <div className="flex items-center gap-3">
+                    <span className="flex items-center justify-center w-11 h-11 rounded-xl bg-dawn-500/10 text-dawn-600 dark:text-dawn-300 shrink-0">
+                      <s.icon className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    <h3 className="font-display text-xl md:text-2xl font-semibold text-foreground">{s.title}</h3>
+                  </div>
                   <p className="mt-3 text-sm md:text-base text-foreground/55 leading-relaxed max-w-2xl">{s.desc}</p>
                   <p className="mt-4 text-xs text-foreground/40 uppercase tracking-wide">{s.note}</p>
                 </div>
@@ -128,8 +136,10 @@ export default function ServicesPage() {
               >
                 <span
                   aria-hidden="true"
-                  className="absolute -left-8 md:-left-[38px] top-1.5 w-[9px] h-[9px] rounded-full bg-dawn-500 ring-4 ring-background"
-                />
+                  className="absolute -left-[27px] md:-left-[31px] top-0 flex items-center justify-center w-6 h-6 rounded-full bg-dawn-500/10 border border-dawn-500/40 ring-4 ring-background"
+                >
+                  <step.icon className="w-3.5 h-3.5 text-dawn-600 dark:text-dawn-300" />
+                </span>
                 <span className="text-xs font-semibold text-dawn-600 dark:text-dawn-300">{step.n}</span>
                 <h3 className="mt-1 font-display text-lg font-semibold text-foreground">{step.title}</h3>
                 <p className="mt-2 text-sm text-foreground/55 leading-relaxed max-w-md">{step.desc}</p>
