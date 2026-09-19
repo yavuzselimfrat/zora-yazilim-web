@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2 group">
           <Image
-            src="/logo-icon-v3.png"
+            src="/logo-icon-v4.png"
             alt="Zora Yazılım logosu"
             width={50}
             height={44}

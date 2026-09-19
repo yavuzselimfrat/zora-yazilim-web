@@ -10,7 +10,7 @@ export const ogContentType = 'image/png';
  * site instead of showing a blank card.
  */
 export async function renderOgImage() {
-  const logoSrc = await fetch(new URL('./assets/logo-icon-v3.png', import.meta.url)).then((res) =>
+  const logoSrc = await fetch(new URL('./assets/logo-icon-v4.png', import.meta.url)).then((res) =>
     res.arrayBuffer()
   );
   return new ImageResponse(
