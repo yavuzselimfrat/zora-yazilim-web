@@ -52,12 +52,12 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2 group">
           <Image
-            src="/logo-icon-v2.png"
+            src="/logo-icon-v3.png"
             alt="Zora Yazılım logosu"
-            width={51}
-            height={42}
+            width={50}
+            height={44}
             priority
-            className="w-[51px] h-[42px] group-hover:scale-105 transition-transform duration-200"
+            className="w-[50px] h-[44px] group-hover:scale-105 transition-transform duration-200"
           />
           <div className="flex flex-col mt-1.5">
             <span className="font-display text-xl font-semibold tracking-tight text-foreground">

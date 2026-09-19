@@ -20,11 +20,11 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2">
           <Image
-            src="/logo-icon-v2.png"
+            src="/logo-icon-v3.png"
             alt="Zora Yazılım logosu"
-            width={40}
+            width={38}
             height={33}
-            className="w-[40px] h-[33px]"
+            className="w-[38px] h-[33px]"
           />
           <span className="font-display text-lg font-semibold tracking-tight text-foreground mt-1">
             ZORA YAZILIM
