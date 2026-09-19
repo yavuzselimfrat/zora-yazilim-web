@@ -28,6 +28,14 @@ const values = [
 
 const guarantees = ['Gizlilik sözleşmesi', '%100 kod mülkiyeti', 'Garantili destek'];
 
+const stats = [
+  { value: '3+', label: 'Yıldır aktif geliştirme' },
+  { value: '2', label: 'Tamamlanmış kurumsal proje' },
+  { value: '1', label: 'Kendi ürettiğimiz SaaS ürün' },
+];
+
+const workedWith = ['Üri Otomotiv', 'Derka Teknik', 'Vetly'];
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-background text-foreground transition-colors duration-300 overflow-hidden">
@@ -70,6 +78,47 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* HİKAYE + RAKAMLAR */}
+      <section className="py-20 md:py-28 border-b border-foreground/10">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 grid md:grid-cols-5 gap-12 md:gap-16 items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: EASE_OUT }}
+            className="md:col-span-3 space-y-4"
+          >
+            <h2 className="font-display text-2xl md:text-3xl font-semibold tracking-tight text-foreground">
+              Nereden geliyoruz
+            </h2>
+            <p className="text-base text-foreground/60 leading-relaxed">
+              Zora Yazılım&rsquo;ı, bilgisayar mühendisliği kökenli ve imalat sektöründe
+              donanım-yazılım geliştirme deneyimine sahip bir ekip kurdu. Sahada edindiğimiz
+              &ldquo;önce sağlam çalışsın&rdquo; ilkesini bugün web ve yapay zeka
+              projelerimize taşıyoruz.
+            </p>
+            <p className="text-base text-foreground/60 leading-relaxed">
+              Üç yıldan uzun süredir kurumsal web sitelerinden kendi ürettiğimiz yazılımlara kadar
+              farklı ölçeklerde projeler geliştiriyoruz.
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: EASE_OUT }}
+            className="md:col-span-2 grid grid-cols-3 md:grid-cols-1 gap-6 md:gap-8"
+          >
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="font-display text-3xl md:text-4xl font-bold text-dawn-500">{s.value}</div>
+                <div className="mt-1 text-xs md:text-sm text-foreground/50 leading-snug">{s.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* DEĞERLER — zikzak düzen, büyük soluk rakamlar */}
       <section className="py-20 md:py-28">
         <div className="max-w-4xl mx-auto px-6 md:px-12">
@@ -107,6 +156,26 @@ export default function AboutPage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* TAMAMLADIĞIMIZ İŞLER */}
+      <section className="py-4 md:py-8">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+          <p className="text-xs uppercase tracking-widest text-foreground/40 font-semibold mb-6">
+            Birlikte çalıştıklarımız
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 font-display text-lg font-medium text-foreground/60">
+            {workedWith.map((w) => (
+              <span key={w}>{w}</span>
+            ))}
+          </div>
+          <Link
+            href="/projeler"
+            className="inline-flex items-center gap-1 mt-6 text-sm font-semibold text-dawn-600 dark:text-dawn-300 hover:underline underline-offset-4"
+          >
+            Projelerimize göz atın <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </section>
 
