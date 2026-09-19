@@ -60,10 +60,10 @@ const Navbar: React.FC = () => {
             className="w-[37px] h-[32px] group-hover:scale-105 transition-transform duration-200"
           />
           <div className="flex flex-col mt-1">
-            <span className="font-display text-xl font-semibold tracking-tight text-foreground">
+            <span className="font-display text-xl font-medium tracking-[0.2em] text-foreground">
               ZORA
             </span>
-            <span className="text-[10px] tracking-widest font-semibold text-foreground/50 uppercase -mt-1">
+            <span className="text-[10px] tracking-[0.35em] font-semibold text-dawn-500 uppercase -mt-1">
               Yazılım
             </span>
           </div>

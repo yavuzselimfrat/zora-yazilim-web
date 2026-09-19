@@ -26,8 +26,8 @@ const Footer: React.FC = () => {
             height={25}
             className="w-[29px] h-[25px]"
           />
-          <span className="font-display text-lg font-semibold tracking-tight text-foreground mt-1">
-            ZORA YAZILIM
+          <span className="font-display text-base font-medium tracking-[0.2em] text-foreground">
+            ZORA <span className="text-dawn-500">YAZILIM</span>
           </span>
         </Link>
 
