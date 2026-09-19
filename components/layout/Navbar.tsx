@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 import ThemeToggle from '../ThemeToggle';
 
 interface NavLink {
@@ -50,12 +51,17 @@ const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-lg bg-dawn flex items-center justify-center text-white font-display font-bold text-xl shadow-md shadow-dawn-700/20 group-hover:scale-105 transition-transform duration-200">
-            Z
-          </div>
-          <div className="flex flex-col">
+          <Image
+            src="/logo-icon-v2.png"
+            alt="Zora Yazılım logosu"
+            width={51}
+            height={42}
+            priority
+            className="w-[51px] h-[42px] group-hover:scale-105 transition-transform duration-200"
+          />
+          <div className="flex flex-col mt-1.5">
             <span className="font-display text-xl font-semibold tracking-tight text-foreground">
-              ZORA<span className="text-dawn-500">.</span>
+              ZORA
             </span>
             <span className="text-[10px] tracking-widest font-semibold text-foreground/50 uppercase -mt-1">
               Yazılım

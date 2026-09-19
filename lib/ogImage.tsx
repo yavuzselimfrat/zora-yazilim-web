@@ -5,11 +5,14 @@ export const ogContentType = 'image/png';
 
 /**
  * Shared OG/Twitter share-card renderer. Reuses the site's real brand mark
- * (the "Z" square + "ZORA." wordmark from the navbar) and its dawn color
+ * (the logo icon + "ZORA" wordmark from the navbar) and its dawn color
  * tokens, so link previews on WhatsApp/LinkedIn/Twitter match the actual
  * site instead of showing a blank card.
  */
-export function renderOgImage() {
+export async function renderOgImage() {
+  const logoSrc = await fetch(new URL('./assets/logo-icon.png', import.meta.url)).then((res) =>
+    res.arrayBuffer()
+  );
   return new ImageResponse(
     (
       <div
@@ -47,25 +50,15 @@ export function renderOgImage() {
           }}
         />
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <div
-            style={{
-              width: 96,
-              height: 96,
-              borderRadius: 20,
-              backgroundImage: 'linear-gradient(100deg, #c97a42, #b35f34)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              fontSize: 52,
-              fontWeight: 700,
-            }}
-          >
-            Z
-          </div>
+          <img
+            src={logoSrc as unknown as string}
+            width={110}
+            height={91}
+            style={{ display: 'flex' }}
+          />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', fontSize: 64, fontWeight: 700, color: '#f5f2ec', letterSpacing: -1 }}>
-              ZORA<span style={{ color: '#c97a42' }}>.</span>
+              ZORA
             </div>
             <div style={{ display: 'flex', fontSize: 20, fontWeight: 600, letterSpacing: 6, color: 'rgba(245,242,236,0.5)', marginTop: -4 }}>
               YAZILIM

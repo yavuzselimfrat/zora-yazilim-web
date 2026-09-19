@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 const Footer: React.FC = () => {
   const pathname = usePathname();
@@ -18,11 +19,15 @@ const Footer: React.FC = () => {
     <footer className="bg-foreground/[0.02] border-t border-foreground/10 py-12 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-dawn flex items-center justify-center text-white font-display font-bold text-base shadow-sm">
-            Z
-          </div>
-          <span className="font-display text-lg font-semibold tracking-tight text-foreground">
-            ZORA<span className="text-dawn-500">.</span> YAZILIM
+          <Image
+            src="/logo-icon-v2.png"
+            alt="Zora Yazılım logosu"
+            width={40}
+            height={33}
+            className="w-[40px] h-[33px]"
+          />
+          <span className="font-display text-lg font-semibold tracking-tight text-foreground mt-1">
+            ZORA YAZILIM
           </span>
         </Link>
 
