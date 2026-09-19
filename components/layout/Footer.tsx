@@ -20,15 +20,12 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-2">
           <Image
-            src="/logo-icon-v4.png"
-            alt="Zora Yazılım logosu"
-            width={29}
-            height={25}
-            className="w-[29px] h-[25px]"
+            src="/logo-wordmark-v1.png"
+            alt="Zora Yazılım"
+            width={95}
+            height={30}
+            className="w-[95px] h-[30px]"
           />
-          <span className="font-display text-base font-medium tracking-[0.2em] text-foreground">
-            ZORA <span className="text-dawn-500">YAZILIM</span>
-          </span>
         </Link>
 
         <p className="text-xs text-foreground/50 text-center">
