@@ -22,9 +22,9 @@ const Footer: React.FC = () => {
           <Image
             src="/logo-icon-v4.png"
             alt="Zora Yazılım logosu"
-            width={38}
-            height={33}
-            className="w-[38px] h-[33px]"
+            width={29}
+            height={25}
+            className="w-[29px] h-[25px]"
           />
           <span className="font-display text-lg font-semibold tracking-tight text-foreground mt-1">
             ZORA YAZILIM

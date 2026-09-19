@@ -54,12 +54,12 @@ const Navbar: React.FC = () => {
           <Image
             src="/logo-icon-v4.png"
             alt="Zora Yazılım logosu"
-            width={50}
-            height={44}
+            width={37}
+            height={32}
             priority
-            className="w-[50px] h-[44px] group-hover:scale-105 transition-transform duration-200"
+            className="w-[37px] h-[32px] group-hover:scale-105 transition-transform duration-200"
           />
-          <div className="flex flex-col mt-1.5">
+          <div className="flex flex-col mt-1">
             <span className="font-display text-xl font-semibold tracking-tight text-foreground">
               ZORA
             </span>
