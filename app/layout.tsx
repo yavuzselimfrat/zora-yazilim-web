@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
+// Self-hosted fonts (npm-bundled font files), not next/font/google: the
+// production host has no outbound access to Google Fonts at build time, so
+// fetching them there would break the build. These packages ship the exact
+// same font files and already cover the latin + latin-ext subsets (Turkish
+// characters included) that the site needs.
+import "@fontsource-variable/inter/wght.css";
+import "@fontsource-variable/bricolage-grotesque/wght.css";
+import "@fontsource/instrument-serif/latin-400-italic.css";
+import "@fontsource/instrument-serif/latin-ext-400-italic.css";
 import "./globals.css";
 import { ThemeProvider } from "../components/ThemeProvider";
 import Navbar from "../components/layout/Navbar";
@@ -7,23 +15,6 @@ import Footer from "../components/layout/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import CookieNotice from "../components/CookieNotice";
 import Script from "next/script";
-
-const inter = Inter({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
-});
-
-const displaySans = Bricolage_Grotesque({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-display-sans",
-});
-
-const accentSerif = Instrument_Serif({
-  subsets: ["latin", "latin-ext"],
-  weight: "400",
-  style: ["italic"],
-  variable: "--font-accent-serif",
-});
 
 const BASE_URL = "https://zorayazilim.com";
 const SITE_NAME = "Zora Yazılım";
@@ -87,7 +78,7 @@ export default function RootLayout({
   return (
     <html lang="tr" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${displaySans.variable} ${accentSerif.variable} font-sans bg-background text-foreground transition-colors duration-300`}
+        className="font-sans bg-background text-foreground transition-colors duration-300"
       >
         <Script
           id="organization-jsonld"

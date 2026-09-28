@@ -3,6 +3,7 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output: "standalone",
   reactCompiler: true,
   turbopack: {
     // Pin the project root to this folder. Without this, Turbopack can

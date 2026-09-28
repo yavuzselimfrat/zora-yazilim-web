@@ -5,6 +5,9 @@
 :root {
   --background: #fbfaf8;
   --foreground: #0b0b10;
+  --font-inter: 'Inter Variable', Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-display-sans: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-accent-serif: 'Instrument Serif', ui-serif, Georgia, serif;
 }
 
 .dark {
