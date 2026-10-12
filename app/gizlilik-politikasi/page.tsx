@@ -39,7 +39,7 @@ const sections = [
     title: 'KVKK kapsamındaki haklarınız',
     body: [
       '6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında; verilerinizin işlenip işlenmediğini öğrenme, işlenmişse buna ilişkin bilgi talep etme, düzeltilmesini veya silinmesini isteme haklarına sahipsiniz.',
-      'Bu haklarınızı kullanmak için contact@zorayazilim.com adresinden bizimle iletişime geçebilirsiniz.',
+      'Bu haklarınızı kullanmak için info@zorayazilim.com adresinden bizimle iletişime geçebilirsiniz.',
     ],
   },
 ];

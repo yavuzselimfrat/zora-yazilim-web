@@ -29,15 +29,41 @@ export default function ContactPage() {
   const [selectedService, setSelectedService] = useState<string>('');
   const [selectedBudget, setSelectedBudget] = useState<string>('');
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [submitError, setSubmitError] = useState<boolean>(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const [weeklyHours, setWeeklyHours] = useState<number>(20);
   const [teamSize, setTeamSize] = useState<number>(4);
   const savedHoursYearly = Math.round(weeklyHours * teamSize * 48 * 0.75);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitError(false);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: String(formData.get('name') || ''),
+      email: String(formData.get('email') || ''),
+      summary: String(formData.get('summary') || ''),
+      service: selectedService,
+      budget: selectedBudget,
+    };
+
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/iletisim', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('request_failed');
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const toggleFaq = (index: number) => {
@@ -85,10 +111,10 @@ export default function ContactPage() {
                       Kurumsal e-posta
                     </p>
                     <a
-                      href="mailto:contact@zorayazilim.com"
+                      href="mailto:info@zorayazilim.com"
                       className="text-sm font-semibold text-foreground hover:text-dawn-600 dark:hover:text-dawn-300 transition-colors duration-200"
                     >
-                      contact@zorayazilim.com
+                      info@zorayazilim.com
                     </a>
                   </div>
                   <div>
@@ -301,13 +327,23 @@ export default function ContactPage() {
 
                       <motion.button
                         type="submit"
-                        whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full py-4 rounded-lg bg-dawn text-white font-semibold text-sm shadow-lg shadow-dawn-700/20 flex items-center justify-center gap-2 hover:brightness-110 transition-[filter] duration-200"
+                        disabled={submitting}
+                        whileHover={{ scale: submitting ? 1 : 1.01 }}
+                        whileTap={{ scale: submitting ? 1 : 0.98 }}
+                        className="w-full py-4 rounded-lg bg-dawn text-white font-semibold text-sm shadow-lg shadow-dawn-700/20 flex items-center justify-center gap-2 hover:brightness-110 transition-[filter] duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
                       >
                         <Send className="w-4 h-4" />
-                        <span>Teklif Talebini Gönder</span>
+                        <span>{submitting ? 'Gönderiliyor...' : 'Teklif Talebini Gönder'}</span>
                       </motion.button>
+                      {submitError && (
+                        <p className="text-center text-xs font-semibold text-red-500">
+                          Talebiniz gönderilemedi, lütfen tekrar deneyin ya da doğrudan{' '}
+                          <a href="mailto:info@zorayazilim.com" className="underline">
+                            info@zorayazilim.com
+                          </a>{' '}
+                          adresine yazın.
+                        </p>
+                      )}
                       <p className="text-center text-[11px] text-foreground/35">
                         Gönder’e basarak{' '}
                         <Link href="/gizlilik-politikasi" className="underline hover:text-foreground/60 transition-colors">

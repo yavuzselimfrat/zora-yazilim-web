@@ -65,7 +65,7 @@ const organizationJsonLd = {
   name: SITE_NAME,
   url: BASE_URL,
   logo: `${BASE_URL}/favicon.ico`,
-  email: "contact@zorayazilim.com",
+  email: "info@zorayazilim.com",
   description: DEFAULT_DESCRIPTION,
   sameAs: [],
 };
