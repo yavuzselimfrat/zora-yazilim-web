@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { renderEmailHtml, escapeHtml } from "@/lib/emailTemplate";
 
 export const runtime = "nodejs";
 
@@ -76,6 +77,19 @@ Bütçe: ${budgetLabel}
 Proje özeti:
 ${summary}`;
 
+  const html = renderEmailHtml({
+    heading: `Yeni Teklif Talebi — ${escapeHtml(name)}`,
+    bodyHtml: `
+      <p style="margin:0 0 16px 0;"><strong>Ad Soyad:</strong> ${escapeHtml(name)}</p>
+      <p style="margin:0 0 16px 0;"><strong>E-posta:</strong> <a href="mailto:${escapeHtml(email)}" style="color:#b35f34;">${escapeHtml(email)}</a></p>
+      <p style="margin:0 0 16px 0;"><strong>Hizmet:</strong> ${escapeHtml(serviceLabel)}</p>
+      <p style="margin:0 0 16px 0;"><strong>Bütçe:</strong> ${escapeHtml(budgetLabel)}</p>
+      <p style="margin:24px 0 8px 0;"><strong>Proje özeti:</strong></p>
+      <p style="margin:0;white-space:pre-line;">${escapeHtml(summary)}</p>
+    `,
+    footerNote: "Bu e-posta zorayazilim.com iletişim formundan gönderildi.",
+  });
+
   try {
     await transporter.sendMail({
       from: `"Zora Yazılım Web Sitesi" <${user}>`,
@@ -83,6 +97,7 @@ ${summary}`;
       replyTo: email,
       subject: `Yeni Teklif Talebi — ${name}`,
       text,
+      html,
     });
   } catch (error) {
     console.error("İletişim formu e-postası gönderilemedi:", error);

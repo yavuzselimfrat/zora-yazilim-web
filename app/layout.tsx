@@ -14,6 +14,7 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import CookieNotice from "../components/CookieNotice";
+import PageViewTracker from "../components/PageViewTracker";
 import Script from "next/script";
 
 const BASE_URL = "https://zorayazilim.com";
@@ -96,6 +97,7 @@ export default function RootLayout({
           <Footer />
           <WhatsAppButton />
           <CookieNotice />
+          <PageViewTracker />
         </ThemeProvider>
       </body>
     </html>

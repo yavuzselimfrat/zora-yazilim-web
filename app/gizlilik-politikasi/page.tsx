@@ -13,6 +13,7 @@ const sections = [
       'İletişim formunu doldurduğunuzda; adınızı, e-posta adresinizi, seçtiğiniz hizmet ve bütçe bilgisini (belirtirseniz) ve projeniz hakkında yazdığınız açıklamayı alırız.',
       'WhatsApp butonuna tıkladığınızda sizi doğrudan WhatsApp uygulamasına yönlendiririz; bu görüşmede paylaştığınız bilgiler WhatsApp’ın kendi gizlilik koşullarına tabidir.',
       'Sitede karanlık/aydınlık tema tercihiniz, tarayıcınızda yerel olarak saklanır; bu bilgi bizim sunucularımıza gönderilmez.',
+      'Blog sayfasından bültenimize abone olursanız, yalnızca e-posta adresinizi yeni yazı duyuruları göndermek için saklarız. Her e-postanın altındaki bağlantıyla dilediğiniz zaman abonelikten çıkabilirsiniz.',
     ],
   },
   {
@@ -23,9 +24,10 @@ const sections = [
     ],
   },
   {
-    title: 'Çerezler',
+    title: 'Çerezler ve ziyaret istatistikleri',
     body: [
-      'Site, oturum ve tema tercihi gibi temel işlevler dışında takip amaçlı reklam veya analiz çerezi kullanmaz. Bu durum değişirse bu sayfayı güncelleriz.',
+      'Site, oturum ve tema tercihi gibi temel işlevler dışında takip amaçlı reklam veya analiz çerezi kullanmaz.',
+      'Hangi sayfaların ne sıklıkla görüntülendiğini anlamak için, hiçbir çerez veya kişisel veri (IP adresi, cihaz kimliği vb.) kaydetmeden, yalnızca anonim bir sayfa görüntülenme sayacı tutarız. Bu sayaçtan sizi kişi olarak tanımlamamız mümkün değildir.',
     ],
   },
   {

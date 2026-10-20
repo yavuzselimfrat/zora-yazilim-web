@@ -111,10 +111,8 @@ const AgentSandbox: React.FC = () => {
         {currentStep === -1 && !isRunning && (
           <div className="flex items-center gap-2 text-slate-500 text-[11px]">
             <span>Bir senaryo seçip adımları izleyin.</span>
-            <motion.span
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 1.1, repeat: Infinity, ease: 'linear' }}
-              className="inline-block w-[6px] h-[13px] bg-dawn-400/70"
+            <span
+              className="blink-cursor inline-block w-[6px] h-[13px] bg-dawn-400/70"
               aria-hidden="true"
             />
           </div>

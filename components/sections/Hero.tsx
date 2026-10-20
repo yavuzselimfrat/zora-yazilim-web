@@ -89,10 +89,8 @@ const Hero: React.FC = () => {
         className="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-10"
         aria-hidden="true"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-9 bg-gradient-to-b from-foreground/0 via-foreground/35 to-foreground/0"
+        <div
+          className="scroll-bounce w-px h-9 bg-gradient-to-b from-foreground/0 via-foreground/35 to-foreground/0"
         />
       </motion.div>
     </section>
