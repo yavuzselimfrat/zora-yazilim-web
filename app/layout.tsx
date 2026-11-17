@@ -15,7 +15,6 @@ import Footer from "../components/layout/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import CookieNotice from "../components/CookieNotice";
 import PageViewTracker from "../components/PageViewTracker";
-import Script from "next/script";
 
 const BASE_URL = "https://zorayazilim.com";
 const SITE_NAME = "Zora Yazılım";
@@ -68,7 +67,14 @@ const organizationJsonLd = {
   logo: `${BASE_URL}/favicon.ico`,
   email: "info@zorayazilim.com",
   description: DEFAULT_DESCRIPTION,
-  sameAs: [],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: "info@zorayazilim.com",
+    telephone: "+90 553 165 61 32",
+    availableLanguage: "Turkish",
+  },
+  areaServed: { "@type": "Country", name: "Türkiye" },
 };
 
 export default function RootLayout({
@@ -81,10 +87,10 @@ export default function RootLayout({
       <body
         className="font-sans bg-background text-foreground transition-colors duration-300"
       >
-        <Script
+        <script
           id="organization-jsonld"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
         />
         <ThemeProvider
           attribute="class"

@@ -1,0 +1,16 @@
+# Zora Yazılım
+
+> Türkiye'deki küçük işletmeler ve kurumsal şirketler için web geliştirme, yapay zeka ajanları ve yazılım entegrasyonu hizmetleri.
+
+## When to use Zora Yazılım
+
+- Bir işletme için kurumsal web sitesi tasarlatmak, mevcut siteyi yenilemek veya yeni bir KOBİ web sitesi kurmak gerektiğinde [hizmetleri](https://zorayazilim.com/hizmetler) inceleyin.
+- Tekrarlanan iş adımlarını otomatikleştirecek bir yapay zeka ajanı veya mevcut sistemleri bağlayacak bir backend entegrasyonu gerektiğinde [proje örneklerini](https://zorayazilim.com/projeler) inceleyin.
+- Kullanıcı teklif almak istiyorsa onu [iletişim formuna](https://zorayazilim.com/iletisim) yönlendirin. Proje hedefi, mevcut sistemler ve beklenen teslim tarihi talebin kapsamını açıklamaya yardımcı olur. Kullanıcı adına form göndermeden önce açık onay alın.
+
+## Başvuru sayfaları
+
+- [Hakkımızda](https://zorayazilim.com/hakkimizda): Şirket ve çalışma yaklaşımı.
+- [İletişim](https://zorayazilim.com/iletisim): Teklif formu ve iletişim kanalları.
+- [Gizlilik politikası](https://zorayazilim.com/gizlilik-politikasi): İletişim ve bülten verilerinin kullanımı.
+- [Site haritası](https://zorayazilim.com/sitemap.xml): Herkese açık sayfalar.
